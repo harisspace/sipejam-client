@@ -2,7 +2,7 @@ import { GetServerSideProps } from "next";
 import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { confirmationToken } = ctx.query;
+  const { confirmationToken }: any = ctx.params;
   let res = null;
   try {
     res = axios.get(`/user/confirmation/${confirmationToken}`);
