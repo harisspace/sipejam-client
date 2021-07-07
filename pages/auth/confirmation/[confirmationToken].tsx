@@ -1,9 +1,8 @@
 import { GetServerSideProps } from "next";
-import Router from "next/router";
 import axios from "axios";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { confirmationToken } = Router.query;
+  const { confirmationToken } = ctx.query;
   let res = null;
   try {
     res = axios.get(`/user/confirmation/${confirmationToken}`);
