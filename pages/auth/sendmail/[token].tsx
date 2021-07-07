@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { sendmailRequest } from "../../../api/user.request";
 import Loader from "../../../components/Templates/Loader";
 
-const SendMail = () => {
+const SendMail: React.FC = () => {
   const router = useRouter();
   const { token } = router.query;
 
