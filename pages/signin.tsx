@@ -83,6 +83,7 @@ const Signin = () => {
                             <a
                               className="text-blue-500"
                               // href={`/auth/sendmail/${(error as any).response.data.error}`}
+                              href="#"
                               onClick={(e) => {
                                 e.preventDefault();
                                 refetch();
