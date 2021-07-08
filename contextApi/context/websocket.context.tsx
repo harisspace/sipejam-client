@@ -20,7 +20,7 @@ const WebscoketContextProvider: React.FC<Props> = ({ children }) => {
   // const [ws, dispatchWs] = useReducer(websocketReducer, initialState);
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:4000");
+    ws.current = new WebSocket(process.env.NEXT_PUBLIC_BASE_WEBSOCKET_URL!);
   }, []);
 
   return <WebsocketContext.Provider value={{ ws }}>{children}</WebsocketContext.Provider>;

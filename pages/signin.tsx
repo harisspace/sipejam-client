@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "react-query";
 import Loader from "../components/Templates/Loader";
 import { ISignin } from "../interface/user.interface";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -19,10 +20,12 @@ const Signin = () => {
     return signinRequest(signinUserDto);
   });
 
-  // handle send emain again
-  if (isError && (error as any)?.response.data.message === "Account not confirmed") {
-    setToken((error as any).response.data.errors);
-  }
+  useEffect(() => {
+    // handle send emain again
+    if (isError && (error as any)?.response.data.message === "Account not confirmed") {
+      setToken((error as any).response.data.error);
+    }
+  }, [isError, error]);
 
   const { refetch } = useQuery(["sendmain", token], () => sendmailRequest(token), { enabled: false });
 
@@ -70,7 +73,7 @@ const Signin = () => {
                   </div>
 
                   {/* list when error occur */}
-                  {token || (error as any)?.response.data.message ? (
+                  {isError || (error as any)?.response.data ? (
                     <div className="p-3 text-sm text-red-500">
                       <ul className="list-inside">
                         <li>{(error as any).response.data.message}</li>
