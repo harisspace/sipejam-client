@@ -20,7 +20,7 @@ const Signin = () => {
   });
 
   // handle send emain again
-  if (isError && (error as any).response.data.message === "Account not confirmed") {
+  if (isError && (error as any)?.response.data.message === "Account not confirmed") {
     setToken((error as any).response.data.errors);
   }
 
@@ -70,7 +70,7 @@ const Signin = () => {
                   </div>
 
                   {/* list when error occur */}
-                  {token || (error as any).response?.data.message ? (
+                  {token || (error as any)?.response.data.message ? (
                     <div className="p-3 text-sm text-red-500">
                       <ul className="list-inside">
                         <li>{(error as any).response.data.message}</li>
