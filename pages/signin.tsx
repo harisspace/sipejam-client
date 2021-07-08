@@ -77,7 +77,7 @@ const Signin = () => {
                     <div className="p-3 text-sm text-red-500">
                       <ul className="list-inside">
                         <li>{(error as any).response.data.message}</li>
-                        {
+                        {token && isError ? (
                           <li>
                             Not get email?, click this{" "}
                             <a
@@ -92,7 +92,9 @@ const Signin = () => {
                             </a>{" "}
                             for send back
                           </li>
-                        }
+                        ) : (
+                          ""
+                        )}
                       </ul>
                     </div>
                   ) : null}
