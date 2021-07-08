@@ -2,7 +2,7 @@ import GoogleOAuth from "../components/Templates/GoogleOAuth";
 import Link from "next/link";
 import classNames from "classnames";
 import { FormEvent, useState } from "react";
-import { signinRequest } from "../api/user.request";
+import { sendmailRequest, signinRequest } from "../api/user.request";
 import { useMutation, useQuery } from "react-query";
 import Loader from "../components/Templates/Loader";
 import { ISignin } from "../interface/user.interface";
@@ -11,12 +11,20 @@ import { useRouter } from "next/router";
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState<string>("");
 
   const router = useRouter();
 
   const { isSuccess, error, isError, isLoading, mutate } = useMutation((signinUserDto: ISignin) => {
     return signinRequest(signinUserDto);
   });
+
+  // handle send emain again
+  if (isError && (error as any).response.data.message === "Account not confirmed") {
+    setToken((error as any).response.data.errors);
+  }
+
+  const { refetch } = useQuery(["sendmain", token], () => sendmailRequest(token), { enabled: false });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,24 +70,26 @@ const Signin = () => {
                   </div>
 
                   {/* list when error occur */}
-                  {isError && (error as any).response.data ? (
+                  {token ? (
                     <div className="p-3 text-sm text-red-500">
                       <ul className="list-inside">
                         <li>{(error as any).response.data.message}</li>
-                        {(error as any).response.data.message === "Account not confirmed" ? (
+                        {
                           <li>
                             Not get email?, click this{" "}
                             <a
                               className="text-blue-500"
-                              href={`/auth/sendmail/${(error as any).response.data.error}`}
+                              // href={`/auth/sendmail/${(error as any).response.data.error}`}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                refetch();
+                              }}
                             >
                               link{" "}
                             </a>{" "}
                             for send back
                           </li>
-                        ) : (
-                          ""
-                        )}
+                        }
                       </ul>
                     </div>
                   ) : null}
