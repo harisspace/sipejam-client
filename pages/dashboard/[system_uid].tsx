@@ -38,7 +38,7 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
   );
 
   useEffect(() => {
-    ws.current = new WebSocket("ws://localhost:4000");
+    ws.current = new WebSocket(process.env.NEXT_PUBLIC_BASE_WEBSOCKET_URL!);
     ws.current.onopen = () => {
       console.log("websocket open");
       ws.current.send(JSON.stringify({ event: "speed", data: { speed_1: 20, speed_2: 45 } }));
