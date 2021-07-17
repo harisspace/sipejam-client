@@ -2,22 +2,24 @@ import Head from "next/head";
 import Image from "next/image";
 import Navbar from "../components/Templates/Navbar";
 import Footer from "../components/Templates/Footer";
-import WithAuth from "../components/Auth/WithAuth";
 import { useQuery } from "react-query";
 import { getSystemsByUserAdmin } from "../api/system.request";
 import SystemCardList from "../components/Templates/SystemCardList";
 import Loader from "../components/Templates/Loader";
 import { UserJwt } from "../interface/user.interface";
+import WithAuthChangeView from "../components/Auth/WithAuthChangeView";
 
 interface Props {
   dataUser: UserJwt;
 }
 
 const Home: React.FC<Props> = ({ dataUser }) => {
-  const { user_uid } = dataUser;
+  const user_uid = dataUser ? dataUser.user_uid : null;
 
-  const { data: dataSystems, isLoading } = useQuery(["system_by_user", user_uid], async () =>
-    getSystemsByUserAdmin(user_uid)
+  const { data: dataSystems, isLoading } = useQuery(
+    ["system_by_user", user_uid],
+    async () => getSystemsByUserAdmin(user_uid as string),
+    { enabled: !!user_uid }
   );
 
   return (
@@ -31,13 +33,21 @@ const Home: React.FC<Props> = ({ dataUser }) => {
           <div className="bg-gradient-to-b from-primary via-secondary">
             <Navbar dataUser={dataUser} />
             {isLoading ? <Loader /> : ""}
-            {dataSystems?.data.length < 0 ? <h1>You are not be admin yet</h1> : ""}
             {dataSystems?.data && dataSystems.data.length > 0 ? (
               <div className="mt-20">
-                <SystemCardList dataSystems={dataSystems.data} dataUser={dataUser} />
+                <SystemCardList dataUser={dataUser} dataSystems={dataSystems.data} />
               </div>
             ) : (
-              ""
+              <div className="flex flex-col items-center justify-center">
+                <Image
+                  className="object-contain"
+                  height={500}
+                  width={500}
+                  src="/images/empty.png"
+                  alt="You already admin all System"
+                />
+                <span>You are not be admin yet</span>
+              </div>
             )}
           </div>
         </div>
@@ -93,4 +103,4 @@ const Home: React.FC<Props> = ({ dataUser }) => {
   );
 };
 
-export default WithAuth(Home);
+export default WithAuthChangeView(Home);

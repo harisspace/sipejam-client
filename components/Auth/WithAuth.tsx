@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from "react";
 import { useQuery } from "react-query";
 import { checkAuth } from "../../api/user.request";
 import Loader from "../Templates/Loader";

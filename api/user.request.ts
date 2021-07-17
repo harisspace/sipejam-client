@@ -18,5 +18,17 @@ export const sendmailRequest = async (token: string) => {
 };
 
 export const checkAuth = async () => {
-  return axios.get(`/user/checkauth`);
+  return axios.get(`user/checkauth`);
+};
+
+export const getSpecificUser = async (user_uid: string) => {
+  return axios.get(`user/profile/${user_uid}`);
+};
+
+export const getUserNotification = async (user_uid: string) => {
+  return axios.get(`user/notification/${user_uid}`);
+};
+
+export const updateUserNotificationReadTrue = async (notification_uid: string) => {
+  return axios.patch(`user/notification/${notification_uid}?read=true`);
 };

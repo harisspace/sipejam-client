@@ -4,8 +4,8 @@ import Layout from "../components/Templates/Layout";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import DashboardLinkContextProvider from "../contextApi/context/dashboardLink.context";
 import WebsocketContextProvider from "../contextApi/context/websocket.context";
+import ModalContextProvider from "../contextApi/context/modal.context";
 
 axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL_API;
 axios.defaults.withCredentials = true;
@@ -15,14 +15,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <WebsocketContextProvider>
-      <DashboardLinkContextProvider>
+      <ModalContextProvider>
         <QueryClientProvider client={queryClient}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
           <ReactQueryDevtools />
         </QueryClientProvider>
-      </DashboardLinkContextProvider>
+      </ModalContextProvider>
     </WebsocketContextProvider>
   );
 }

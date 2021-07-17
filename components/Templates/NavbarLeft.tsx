@@ -6,19 +6,17 @@ import { IoSettingsOutline } from "react-icons/io5";
 import Link from "next/link";
 import classNames from "classnames";
 import { useState } from "react";
-import { User } from "../../interface/user.interface";
+import { UserJwt } from "../../interface/user.interface";
 import Image from "next/image";
-import { useContext } from "react";
-import { DashboardLinkContext } from "../../contextApi/context/dashboardLink.context";
+import { useRouter } from "next/router";
 
 interface Props {
-  dataUser: User;
+  dataUser: UserJwt;
 }
 
 const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
   const [path, setPath] = useState("");
-
-  const { dispatchDashboardLink } = useContext(DashboardLinkContext);
+  const { system_uid } = useRouter().query;
 
   return (
     <>
@@ -46,41 +44,49 @@ const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
                 <a className="ml-2">Home</a>
               </Link>
             </li>
-            <li className={classNames("mb-3 flex justify-center items-center", { "bg-gray-400": path === "/" })}>
-              <AiOutlineProfile />
-              <a className="ml-2 cursor-pointer" onClick={(e) => dispatchDashboardLink({ type: "PROFILE" })}>
-                Detail System
-              </a>
+            <li className={classNames("mb-3", { "bg-gray-400": path === "/" })}>
+              <Link href={`/dashboard/${system_uid}/detail`}>
+                <a className="flex justify-center items-center cursor-pointer">
+                  <AiOutlineProfile />
+                  <span className="ml-2">Detail System</span>
+                </a>
+              </Link>
             </li>
             <li
-              className={classNames("mb-3 flex justify-center items-center", {
+              className={classNames("mb-3", {
                 "bg-gray-400": path === "dashboard",
               })}
             >
-              <RiDashboardLine />
-              <a className="ml-2 cursor-pointer" onClick={(e) => dispatchDashboardLink({ type: "DASHBOARD" })}>
-                Dashboard
-              </a>
+              <Link href={`/dashboard/${system_uid}`}>
+                <a className="cursor-pointer flex justify-center items-center">
+                  <RiDashboardLine />
+                  <span className="ml-2">Dashboard</span>
+                </a>
+              </Link>
             </li>
             <li
               className={classNames("mb-3 flex justify-center items-center", {
                 "bg-gray-400": path === "graphics",
               })}
             >
-              <BsGraphUp />
-              <a className="ml-2 cursor-pointer" onClick={(e) => dispatchDashboardLink({ type: "GRAPHICS" })}>
-                Graphics
-              </a>
+              <Link href={`/dashboard/${system_uid}/graphics`}>
+                <a className="cursor-pointer flex justify-center items-center">
+                  <BsGraphUp />
+                  <span className="ml-2">Graphics</span>
+                </a>
+              </Link>
             </li>
             <li
-              className={classNames("mb-3 flex justify-center items-center", {
+              className={classNames("mb-3", {
                 "bg-gray-400": path === "settings",
               })}
             >
-              <IoSettingsOutline />
-              <a className="ml-2 cursor-pointer" onClick={(e) => dispatchDashboardLink({ type: "SETTINGS" })}>
-                Settings
-              </a>
+              <Link href={`/dashboard/${system_uid}/settings`}>
+                <a className="cursor-pointer flex justify-center items-center">
+                  <IoSettingsOutline />
+                  <span className="ml-2">Settings</span>
+                </a>
+              </Link>
             </li>
             <li className="mb-3 flex justify-center items-center">
               <AiOutlineLogout />

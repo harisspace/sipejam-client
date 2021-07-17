@@ -6,15 +6,10 @@ import Loader from "../../components/Templates/Loader";
 import Navbar from "../../components/Templates/Navbar";
 import { CreateSystemDto } from "../../interface/system.interface";
 import Notification from "../../components/Notification";
+import { UserJwt } from "../../interface/user.interface";
 
 interface Props {
-  dataUser: {
-    email: string;
-    iat: number;
-    user_role: string;
-    user_uid: string;
-    username: string;
-  };
+  dataUser: UserJwt;
 }
 
 const Create: React.FC<Props> = ({ dataUser }) => {

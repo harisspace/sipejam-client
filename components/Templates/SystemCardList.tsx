@@ -3,7 +3,6 @@ import { System } from "../../interface/system.interface";
 import { User, UserJwt } from "../../interface/user.interface";
 
 interface Props {
-  dataUser: UserJwt;
   dataSystems: {
     system_uid: string;
     system_role: string;
@@ -11,13 +10,20 @@ interface Props {
     systems: System;
     users: User;
   }[];
+  dataUser: UserJwt;
 }
 
-const SystemCardList: React.FC<Props> = ({ dataSystems }) => {
+const SystemCardList: React.FC<Props> = ({ dataSystems, dataUser }) => {
   return (
     <div>
       {dataSystems.map(({ users, systems }) => (
-        <SystemCard dataSystem={systems} user={users} key={systems.system_uid} />
+        <SystemCard
+          fromUser={dataUser}
+          isAdmin={true}
+          dataSystem={systems}
+          user={users}
+          key={systems.system_uid}
+        />
       ))}
     </div>
   );
