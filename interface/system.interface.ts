@@ -42,3 +42,36 @@ export interface SystemAndUser {
   image_uri: string;
   users: User;
 }
+
+export interface Speed1 {
+  id: string;
+  speeds1_uid: string;
+  speed: number;
+  created_at: string;
+}
+
+export interface Speed2 {
+  id: string;
+  speeds2_uid: string;
+  speed: number;
+  created_at: string;
+}
+
+export interface Vehicle1 {
+  id: string;
+  vehicle1_uid: string;
+  vehicle: number;
+  created_at: string;
+}
+
+export interface Vehicle2 {
+  id: string;
+  vehicle2_uid: string;
+  vehicle: number;
+  created_at: string;
+}
+
+export interface WebsocketEvent {
+  data: { iot_token: string; speed?: number; vehicle?: number };
+  event: string;
+}

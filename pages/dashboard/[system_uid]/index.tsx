@@ -10,19 +10,21 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { WebsocketContext } from "../../../contextApi/context/websocket.context";
+import { WebsocketEvent } from "../../../interface/system.interface";
 
 interface Props {
   dataUser: UserJwt;
 }
 
 const Dashboard: React.FC<Props> = ({ dataUser }) => {
-  const [speed, setSpeed] = useState<any>({ speed_1: 0, speed_2: 0 });
-  const [vehicle, setVehicle] = useState<any>({ vehicle_1: 0, vehicle_2: 0 });
+  const [speed1, setSpeed1] = useState<number>(0);
+  const [speed2, setSpeed2] = useState<number>(0);
+  const [vehicle1, setVehicle1] = useState<number>(0);
+  const [vehicle2, setVehicle2] = useState<number>(0);
 
   const { ws }: any = useContext(WebsocketContext);
 
-  const router = useRouter();
-  const { system_uid } = router.query;
+  const { system_uid } = useRouter().query;
   const { data, isError, isLoading } = useQuery(
     ["system", system_uid],
     async () => getSpecificSystem(system_uid as string),
@@ -32,17 +34,13 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
   );
 
   useEffect(() => {
-    console.log(ws.current);
-    ws.current.onopen = () => {
-      console.log("websocket open");
-      ws.current.send(JSON.stringify({ event: "speed", data: { speed_1: 20, speed_2: 45 } }));
-      ws.current.send(JSON.stringify({ event: "vehicle", data: { vehicle_1: 2, vehicle_2: 4 } }));
-    };
     ws.current.onmessage = (event: any) => {
-      const { data, event: type } = JSON.parse(event.data);
+      const { data, event: type }: WebsocketEvent = JSON.parse(event.data);
       console.log(data, type);
-      if (type === "speed") setSpeed({ speed_1: data.speed_1, speed_2: data.speed_2 });
-      if (type === "vehicle") setVehicle({ vehicle_1: data.vehicle_1, vehicle_2: data.vehicle_2 });
+      if (type === "speed_1") setSpeed1(data.speed!);
+      if (type === "speed_2") setSpeed2(data.speed!);
+      if (type === "vehicle_1") setVehicle1(data.vehicle!);
+      if (type === "vehicle_2") setVehicle2(data.vehicle!);
     };
   }, [ws]);
 
@@ -51,7 +49,7 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
       <NavbarLeft dataUser={dataUser} />
       <div className="col-span-10 bg-gray-100 min-h-screen">
         <div className="w-wrapper m-auto mt-5">
-          <Speeds speed={speed} vehicle={vehicle} />
+          <Speeds speed_1={speed1} speed_2={speed2} vehicle_1={vehicle1} vehicle_2={vehicle2} />
         </div>
       </div>
     </div>

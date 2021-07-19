@@ -8,6 +8,10 @@ import NavbarLeft from "../../../components/Templates/NavbarLeft";
 import { UserJwt } from "../../../interface/user.interface";
 import Image from "next/image";
 import { MdPlace } from "react-icons/md";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 interface Props {
   dataUser: UserJwt;
@@ -64,7 +68,9 @@ const Detail: React.FC<Props> = ({ dataUser }) => {
                     </div>
                     <div className="flex flex-col ml-3">
                       <span>{data?.data.users.username}</span>
-                      <span className="text-xs text-primary">{data?.data.users.created_at}</span>
+                      <span className="text-xs text-primary">
+                        {dayjs().to(dayjs(data?.data.users.created_at))}
+                      </span>
                     </div>
                   </div>
                 </div>

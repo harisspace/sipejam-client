@@ -36,3 +36,19 @@ export const requestToBeAdmin = async (data: RequestToBeAdminDto) => {
 export const addAdminSystem = async (data: AddAdminDto) => {
   return await axios.post("/system/add", data);
 };
+
+export const getAllSpeed1Data = async (system_uid: string) => {
+  return await axios.get(`system/speed1/${system_uid}`)
+}
+
+export const getAllSpeed2Data = async (system_uid: string) => {
+  return await axios.get(`system/speed2/${system_uid}`)
+}
+
+export const getAllVehicle1Data = async (system_uid: string) => {
+  return await axios.get(`system/vehicle1/${system_uid}`)
+}
+
+export const getAllVehicle2Data = async (system_uid: string) => {
+  return await axios.get(`system/vehicle2/${system_uid}`)
+}
