@@ -7,6 +7,11 @@ import Navbar from "../../components/Templates/Navbar";
 import { CreateSystemDto } from "../../interface/system.interface";
 import Notification from "../../components/Notification";
 import { UserJwt } from "../../interface/user.interface";
+import ReactModal from "../../components/Templates/ReactModal";
+import ReactModalInfo from "../../components/Templates/ReactModalInfo";
+import { useContext } from "react";
+import { ModalContext } from "../../contextApi/context/modal.context";
+import { useEffect } from "react";
 
 interface Props {
   dataUser: UserJwt;
@@ -17,7 +22,9 @@ const Create: React.FC<Props> = ({ dataUser }) => {
   const [placed, setPlaced] = useState("");
   const [image, setImage] = useState(Object);
 
-  const { mutate, isLoading, isError, error, isSuccess } = useMutation((formData: any) =>
+  const { setShowModal, showModal } = useContext(ModalContext);
+
+  const { mutate, isLoading, isError, error, isSuccess, data } = useMutation((formData: any) =>
     createSystemRequest(formData)
   );
 
@@ -40,11 +47,26 @@ const Create: React.FC<Props> = ({ dataUser }) => {
     mutate(formData);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setShowModal(true);
+    }
+  }, [isSuccess, setShowModal]);
+
   return (
     <>
       {isLoading ? <Loader /> : ""}
       {isError ? <Notification message={(error as any)?.response.data.message} /> : ""}
       {isSuccess ? <Notification message="System created" /> : ""}
+      {showModal ? (
+        <ReactModalInfo
+          title="IoT Token"
+          body="This is your IoT token for this system, dont tell anyone"
+          inputValue={data?.data.iot_token}
+        />
+      ) : (
+        ""
+      )}
       <div>
         <Navbar dataUser={dataUser} />
         <div className="shadow-xl w-1/3 rounded-xl m-auto p-5 mt-10 bg-primary">

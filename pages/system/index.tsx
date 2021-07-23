@@ -14,28 +14,28 @@ interface Props {
 }
 
 const System: React.FC<Props> = ({ dataUser }) => {
-  const { isLoading, data } = useQuery(
+  const { isLoading, data, isSuccess } = useQuery(
     ["systems_user_not_admin", dataUser.user_uid],
     () => getSystemsByUserNotAdmin(dataUser.user_uid as string),
     { enabled: !!dataUser.user_uid, refetchOnWindowFocus: false }
   );
-  if (data) console.log(data);
 
   return (
     <>
       {isLoading ? <Loader /> : ""}
       <Navbar dataUser={dataUser} />
-      {data?.data && data.data.length >= 1 ? (
-        data.data.map((systemAndUser: SystemAndUser) => (
-          <SystemCard
-            isAdmin={false}
-            user={systemAndUser.users}
-            dataSystem={systemAndUser}
-            key={systemAndUser.id}
-            fromUser={dataUser}
-          />
-        ))
-      ) : (
+      {data?.data && data.data.length > 0
+        ? data.data.map((systemAndUser: SystemAndUser) => (
+            <SystemCard
+              isAdmin={false}
+              user={systemAndUser.users}
+              dataSystem={systemAndUser}
+              key={systemAndUser.id}
+              fromUser={dataUser}
+            />
+          ))
+        : ""}
+      {isSuccess && data?.data.length < 1 ? (
         <div className="flex flex-col items-center justify-center">
           <Image
             className="object-contain"
@@ -46,6 +46,8 @@ const System: React.FC<Props> = ({ dataUser }) => {
           />
           <span>You already admin all system</span>
         </div>
+      ) : (
+        ""
       )}
     </>
   );

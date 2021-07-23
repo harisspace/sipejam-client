@@ -11,6 +11,7 @@ import {
   getAllSpeed2Data,
   getAllVehicle1Data,
   getAllVehicle2Data,
+  getSpecificSystem,
 } from "../../../api/system.request";
 import { Speed1, Speed2, Vehicle1, Vehicle2, WebsocketEvent } from "../../../interface/system.interface";
 import dayjs from "dayjs";
@@ -28,6 +29,13 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
   dayjs.extend(relativeTime);
 
   const { system_uid } = useRouter().query;
+
+  // query system
+  const { data } = useQuery(["system", system_uid], async () => getSpecificSystem(system_uid as string), {
+    enabled: !!system_uid,
+  });
+
+  // query speed and vehicle
   const { data: speeds1Data, isSuccess: speeds1IsSuccess } = useQuery(
     ["speeds1", system_uid],
     async () => getAllSpeed1Data(system_uid as string),
@@ -167,24 +175,54 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
   }, [vehicle2IsSuccess]);
 
   // websocket
-  const { ws }: any = useContext(WebsocketContext);
+  const { ws, setIotToken }: any = useContext(WebsocketContext);
 
   useEffect(() => {
+    if (!data) return;
+
+    setIotToken(data.data.iot_token);
+
+    if (!ws.current) return;
+
     ws.current.onmessage = (event: any) => {
       const { data, event: type }: WebsocketEvent = JSON.parse(event.data);
       const dateNow = new Date();
-      if (type === "speed_1" && speeds1Data)
+      if (type === "speed_1" && speeds1Data) {
         setSeriesSpeed1([
           {
             ...seriesSpeed1,
             data: [...seriesSpeed1[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.speed }],
           },
         ]);
-      // if (type === "speed_2") setSpeed2(data.speed!);
-      // if (type === "vehicle_1") setVehicle1(data.vehicle!);
-      // if (type === "vehicle_2") setVehicle2(data.vehicle!);
+      }
+      if (type === "speed_2") {
+        console.log("speed2");
+        setSeriesSpeed2([
+          {
+            ...seriesSpeed2,
+            data: [...seriesSpeed2[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.speed }],
+          },
+        ]);
+      }
+      if (type === "vehicle_1") {
+        setSeriesVehicle1([
+          {
+            ...seriesVehicle1,
+            data: [...seriesVehicle1[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.vehicle }],
+          },
+        ]);
+      }
+      if (type === "vehicle_2") {
+        setSeriesVehicle2([
+          {
+            ...seriesVehicle2,
+            data: [...seriesVehicle2[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.vehicle }],
+          },
+        ]);
+      }
     };
-  }, [ws, seriesSpeed1, speeds1Data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ws.current, setIotToken, seriesSpeed1, speeds1Data, data]);
 
   return (
     <div className="grid grid-cols-12">

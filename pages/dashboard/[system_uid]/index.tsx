@@ -22,7 +22,7 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
   const [vehicle1, setVehicle1] = useState<number>(0);
   const [vehicle2, setVehicle2] = useState<number>(0);
 
-  const { ws }: any = useContext(WebsocketContext);
+  const { ws, setIotToken }: any = useContext(WebsocketContext);
 
   const { system_uid } = useRouter().query;
   const { data, isError, isLoading } = useQuery(
@@ -34,7 +34,14 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
   );
 
   useEffect(() => {
+    if (!data) return;
+
+    setIotToken(data.data.iot_token);
+
+    if (!ws.current) return;
+
     ws.current.onmessage = (event: any) => {
+      console.log("ada message");
       const { data, event: type }: WebsocketEvent = JSON.parse(event.data);
       console.log(data, type);
       if (type === "speed_1") setSpeed1(data.speed!);
@@ -42,7 +49,11 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
       if (type === "vehicle_1") setVehicle1(data.vehicle!);
       if (type === "vehicle_2") setVehicle2(data.vehicle!);
     };
-  }, [ws]);
+    ws.current.onclose = () => {
+      console.log("close");
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ws.current, setIotToken, data]);
 
   return (
     <div className="grid grid-cols-12">
