@@ -1,6 +1,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost", "sipejam-restfullapi.herokuapp.com"],
+    domains: ["sipejam-restfullapi.herokuapp.com", "localhost"],
   },
 };

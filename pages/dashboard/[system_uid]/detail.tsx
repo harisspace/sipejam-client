@@ -43,6 +43,10 @@ const Detail: React.FC<Props> = ({ dataUser }) => {
                   <MdPlace />
                   <span>{data?.data.placed}</span>
                 </span>
+                <span className="flex justify-center items-center text-xs text-primary">
+                  <span>IoT token : </span>
+                  <span>{data?.data.iot_token}</span>
+                </span>
 
                 <div className="flex mb-3 justify-center h-64 mt-7">
                   <Image
