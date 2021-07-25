@@ -27,7 +27,7 @@ const Signin = () => {
     }
   }, [isError, error]);
 
-  const { refetch } = useQuery(["sendmain", token], () => sendmailRequest(token), { enabled: false });
+  const { refetch } = useQuery(["sendmail", token], () => sendmailRequest(token), { enabled: false });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const Signin = () => {
     mutate({ email, password });
   };
 
-  if (isSuccess) router.push("/");
+  // if (isSuccess) router.push("/");
 
   return (
     <>
