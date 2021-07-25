@@ -35,7 +35,7 @@ const Signin = () => {
     mutate({ email, password });
   };
 
-  // if (isSuccess) router.push("/");
+  if (isSuccess) router.push("/");
 
   return (
     <>
