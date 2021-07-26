@@ -8,6 +8,7 @@ import Loader from "../components/Templates/Loader";
 import { ISignin } from "../interface/user.interface";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import NoAuth from "../components/Auth/NoAuth";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
@@ -121,4 +122,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default NoAuth(Signin);

@@ -24,7 +24,7 @@ const System: React.FC<Props> = ({ dataUser }) => {
     <>
       {isLoading ? <Loader /> : ""}
       <Navbar dataUser={dataUser} />
-      {data?.data && data.data.length > 0
+      {data?.data && data.data.length > 0 && !isLoading
         ? data.data.map((systemAndUser: SystemAndUser) => (
             <SystemCard
               isAdmin={false}

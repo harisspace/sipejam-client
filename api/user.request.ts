@@ -32,3 +32,7 @@ export const getUserNotification = async (user_uid: string) => {
 export const updateUserNotificationReadTrue = async (notification_uid: string) => {
   return axios.patch(`user/notification/${notification_uid}?read=true`);
 };
+
+export const getOAuthData = async (codeQueryString: string) => {
+  return axios.get(`/user/oauth/google/confirmation?${codeQueryString}`);
+};

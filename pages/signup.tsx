@@ -7,6 +7,7 @@ import { signupRequest } from "../api/user.request";
 import { useMutation } from "react-query";
 import Loader from "../components/Templates/Loader";
 import { ISignup } from "../interface/user.interface";
+import NoAuth from "../components/Auth/NoAuth";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -97,4 +98,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default NoAuth(Signup);

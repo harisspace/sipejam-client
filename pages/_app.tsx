@@ -11,7 +11,13 @@ axios.defaults.baseURL = process.env.NEXT_PUBLIC_BASE_URL_API;
 axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
 
   return (
     <WebsocketContextProvider>

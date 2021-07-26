@@ -8,6 +8,7 @@ import Navbar from "../../../components/Templates/Navbar";
 import NotificationCard from "../../../components/Templates/NotificationCard";
 import NotificationCardList from "../../../components/Templates/NotificationCardList";
 import { INotification, UserJwt } from "../../../interface/user.interface";
+import Image from "next/image";
 
 interface Props {
   dataUser: UserJwt;
@@ -29,7 +30,16 @@ const NotificationPage: React.FC<Props> = ({ dataUser }) => {
       {data?.data && data.data.length > 0 ? (
         <NotificationCardList dataNotifications={data.data} refetch={refetch} />
       ) : (
-        <h1>There is no notifications on you</h1>
+        <div className="flex flex-col items-center justify-center">
+          <Image
+            className="object-contain"
+            height={500}
+            width={500}
+            src="/images/empty.png"
+            alt="You already admin all System"
+          />
+          <span>There is no notification, happy good day</span>
+        </div>
       )}
     </div>
   );

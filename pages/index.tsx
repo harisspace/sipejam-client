@@ -33,7 +33,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
           <div className="bg-gradient-to-b from-primary via-secondary">
             <Navbar dataUser={dataUser} />
             {isLoading ? <Loader /> : ""}
-            {dataSystems?.data && dataSystems.data.length > 0 ? (
+            {dataSystems?.data && dataSystems.data.length > 0 && !isLoading ? (
               <div className="mt-20">
                 <SystemCardList dataUser={dataUser} dataSystems={dataSystems.data} />
               </div>

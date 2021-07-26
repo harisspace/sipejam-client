@@ -1,18 +1,13 @@
-import { GetServerSideProps } from "next";
-import nookies from "nookies";
-
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  nookies.destroy(ctx, "token");
-  nookies.destroy(ctx, "oauth_token");
-  return {
-    redirect: {
-      destination: "/signin",
-      permanent: false,
-    },
-  };
-};
+import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import { signoutRequest } from "../api/user.request";
 
 const Signout = () => {
+  const router = useRouter();
+  const { isSuccess } = useQuery("signout", async () => signoutRequest());
+
+  if (isSuccess) router.push("/signin");
+
   return null;
 };
 
