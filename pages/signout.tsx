@@ -1,12 +1,20 @@
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
+import { useEffect } from "react";
 import { signoutRequest } from "../api/user.request";
 
 const Signout = () => {
   const router = useRouter();
-  const { isSuccess } = useQuery("signout", async () => signoutRequest());
 
-  if (isSuccess) router.push("/signin");
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    try {
+      signoutRequest();
+    } catch (err) {
+      console.log(err);
+      router.back();
+    }
+  }, [router]);
 
   return null;
 };

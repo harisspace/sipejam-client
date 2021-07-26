@@ -10,7 +10,7 @@ export const signinRequest = async ({ email, password }: ISignin) => {
 };
 
 export const signoutRequest = async () => {
-  return axios.get("/user/signout");
+  return await axios.get("/user/signout");
 };
 
 export const sendmailRequest = async (token: string) => {
