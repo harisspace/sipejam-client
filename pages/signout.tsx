@@ -1,23 +1,22 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useMutation } from "react-query";
+import { signoutRequest } from "../api/user.request";
 
 const Signout = () => {
   const router = useRouter();
 
-  const signoutFetch = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}/user/signout`, { credentials: "include", method: "GET" });
-  };
+  const { mutate, isSuccess } = useMutation(() => signoutRequest());
 
   useEffect(() => {
     if (!router.isReady) return;
 
-    try {
-      signoutFetch();
-    } catch (err) {
-      console.log(err);
-      router.back();
-    }
+    // if (isSuccess) router.push('/signin')
   }, [router]);
+
+  useEffect(() => {
+    mutate();
+  }, []);
 
   return null;
 };
