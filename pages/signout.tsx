@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { signoutRequest } from "../api/user.request";
+import { destroyCookie } from "nookies";
 
 const Signout = () => {
   const router = useRouter();
@@ -15,6 +16,8 @@ const Signout = () => {
   }, [router]);
 
   useEffect(() => {
+    destroyCookie(null, "token");
+    destroyCookie(null, "oauth_token");
     mutate();
   }, []);
 
