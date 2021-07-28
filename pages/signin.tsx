@@ -41,10 +41,10 @@ const Signin = () => {
     if (isSuccess && data?.data) {
       setCookie(null, "token", data.data.token, {
         maxAge: 6048000000,
-        sameSite: "strict",
+        sameSite: "none",
         path: "/",
         httpOnly: false,
-        secure: false,
+        secure: true,
       });
       router.push("/");
     }
