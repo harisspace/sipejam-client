@@ -8,6 +8,7 @@ import Loader from "../components/Templates/Loader";
 import { ISignin } from "../interface/user.interface";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { setCookie } from "nookies";
 import NoAuth from "../components/Auth/NoAuth";
 
 const Signin = () => {
@@ -17,7 +18,7 @@ const Signin = () => {
 
   const router = useRouter();
 
-  const { isSuccess, error, isError, isLoading, mutate } = useMutation((signinUserDto: ISignin) => {
+  const { isSuccess, error, isError, isLoading, mutate, data } = useMutation((signinUserDto: ISignin) => {
     return signinRequest(signinUserDto);
   });
 
@@ -36,7 +37,18 @@ const Signin = () => {
     mutate({ email, password });
   };
 
-  if (isSuccess) router.push("/");
+  useEffect(() => {
+    if (isSuccess && data?.data) {
+      setCookie(null, "token", data.data.token, {
+        maxAge: 6048000000,
+        sameSite: "strict",
+        path: "/",
+        httpOnly: false,
+        secure: false,
+      });
+      router.push("/");
+    }
+  }, [isSuccess, data, router]);
 
   return (
     <>
