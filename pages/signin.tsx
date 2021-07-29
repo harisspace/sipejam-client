@@ -39,16 +39,9 @@ const Signin = () => {
 
   useEffect(() => {
     if (isSuccess && data?.data) {
-      setCookie(null, "token", data.data.token, {
-        maxAge: 6048000000,
-        sameSite: "none",
-        path: "/",
-        httpOnly: false,
-        secure: true,
-      });
       router.push("/");
     }
-  }, [isSuccess, data, router]);
+  }, [isSuccess, router]);
 
   return (
     <>
