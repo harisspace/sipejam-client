@@ -1,25 +1,28 @@
 import nookies from "nookies";
 import { GetServerSideProps } from "next";
 import { signoutRequest } from "../api/user.request";
+import { useMutation } from "react-query";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   nookies.destroy(ctx, "token");
 
-  try {
-    await signoutRequest();
-  } catch (err) {
-    console.log(err);
-  }
-
   return {
-    redirect: {
-      destination: "/signin",
-      permanent: false,
-    },
+    props: {},
   };
 };
 
 const Signout = () => {
+  const router = useRouter();
+  const { mutate, isSuccess } = useMutation(() => signoutRequest());
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    mutate();
+    if (isSuccess) router.push("/");
+  }, [router, isSuccess, mutate]);
+
   return null;
 };
 
