@@ -127,4 +127,4 @@ const Signin = () => {
   );
 };
 
-export default NoAuth(Signin);
+export default Signin;
