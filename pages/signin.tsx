@@ -41,7 +41,7 @@ const Signin = () => {
     if (isSuccess && data?.data) {
       router.push("/");
     }
-  }, [isSuccess, router]);
+  }, [isSuccess, router, data]);
 
   return (
     <>

@@ -254,7 +254,7 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
                           {dayjs().to(dayjs(vehicle1.created_at))},{" "}
                           {dayjs(vehicle1.created_at).format("dddd, MMMM DD,YYYY h A")}{" "}
                         </span>
-                        <span className="ml-1">| {vehicle1.vehicle} Km/h</span>
+                        <span className="ml-1">| {vehicle1.vehicle} Truk/Bus</span>
                       </div>
                     ))
                   : "failed"}
@@ -270,7 +270,7 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
                           {dayjs().to(dayjs(vehicle2.created_at))},{" "}
                           {dayjs(vehicle2.created_at).format("dddd, MMMM DD,YYYY h A")}{" "}
                         </span>
-                        <span className="ml-1">| {vehicle2.vehicle} Km/h</span>
+                        <span className="ml-1">| {vehicle2.vehicle} Truk/Bus</span>
                       </div>
                     ))
                   : "failed"}
