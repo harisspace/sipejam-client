@@ -18,7 +18,7 @@ export const sendmailRequest = async (token: string) => {
 };
 
 export const checkAuth = async () => {
-  return axios.get(`user/checkauth`);
+  return axios.get(`user/checkauth`, { withCredentials: true, headers: { Authorization: `Bearer initoken` } });
 };
 
 export const getSpecificUser = async (user_uid: string) => {
