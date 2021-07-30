@@ -9,11 +9,12 @@ import { setCookie } from "nookies";
 const OAuthGoogle = () => {
   const router = useRouter();
   const [codeQueryString, setCodeQueryString] = useState<string>("");
-  const { isLoading, isSuccess, data } = useQuery(
+  const { isLoading, isSuccess, data, error, isError } = useQuery(
     ["google-oauth", codeQueryString],
     async () => getOAuthData(codeQueryString),
     {
       enabled: !!router?.query.code,
+      retry: false,
     }
   );
 
@@ -24,16 +25,13 @@ const OAuthGoogle = () => {
   }, [router.query]);
 
   useEffect(() => {
-    if (isSuccess && data) {
-      setCookie(null, "token", data.data.token, {
-        maxAge: 6048000000,
-        sameSite: "none",
-        path: "/",
-        httpOnly: false,
-        secure: true,
-      });
+    if (isSuccess) {
+      router.push("/");
     }
-    router.push("/");
+
+    if (isError) {
+      console.log((error as any).response);
+    }
   }, [isSuccess, router, data]);
 
   return <div>{isLoading ? <Loader /> : ""}</div>;
