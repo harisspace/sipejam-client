@@ -8,12 +8,12 @@ import { setCookie } from "nookies";
 
 const OAuthGoogle = () => {
   const router = useRouter();
-  const [codeQueryString, setCodeQueryString] = useState<string>("");
+  const [codeQueryString, setCodeQueryString] = useState<string | null>(null);
   const { isLoading, isSuccess, data, error, isError } = useQuery(
     ["google-oauth", codeQueryString],
-    async () => getOAuthData(codeQueryString),
+    async () => getOAuthData(codeQueryString!),
     {
-      enabled: !!router?.query.code,
+      enabled: !!codeQueryString,
       retry: false,
     }
   );
@@ -32,7 +32,7 @@ const OAuthGoogle = () => {
     if (isError) {
       console.log((error as any).response);
     }
-  }, [isSuccess, router, data]);
+  }, [isSuccess, router, data, isError, error]);
 
   return <div>{isLoading ? <Loader /> : ""}</div>;
 };
