@@ -7,13 +7,23 @@ import { UserJwt } from "../../../interface/user.interface";
 import { useQuery } from "react-query";
 import { useRouter } from "next/router";
 import {
+  getAllSmallVehicle1Data,
+  getAllSmallVehicle2Data,
   getAllSpeed1Data,
   getAllSpeed2Data,
   getAllVehicle1Data,
   getAllVehicle2Data,
   getSpecificSystem,
 } from "../../../api/system.request";
-import { Speed1, Speed2, Vehicle1, Vehicle2, WebsocketEvent } from "../../../interface/system.interface";
+import {
+  SmallVehicle1,
+  SmallVehicle2,
+  Speed1,
+  Speed2,
+  Vehicle1,
+  Vehicle2,
+  WebsocketEvent,
+} from "../../../interface/system.interface";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useContext } from "react";
@@ -54,6 +64,17 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
   const { data: vehicles2Data, isSuccess: vehicle2IsSuccess } = useQuery(
     ["vehicles2", system_uid],
     async () => getAllVehicle2Data(system_uid as string),
+    { enabled: !!system_uid }
+  );
+  const { data: smallVehicle1Data, isSuccess: smallVehicle1IsSuccess } = useQuery(
+    ["smallvehicles1", system_uid],
+    async () => getAllSmallVehicle1Data(system_uid as string),
+    { enabled: !!system_uid }
+  );
+
+  const { data: smallVehicle2Data, isSuccess: smallVehicle2IsSuccess } = useQuery(
+    ["smallvehicles2", system_uid],
+    async () => getAllSmallVehicle2Data(system_uid as string),
     { enabled: !!system_uid }
   );
 
@@ -174,6 +195,62 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vehicle2IsSuccess]);
 
+  // small vehicle1 graph data
+  const [seriesSmallVehicle1, setSeriesSmallVehicle1] = useState<any>([
+    {
+      name: "small-vehicles-1",
+      data: [],
+      noData: {
+        text: "...loading",
+      },
+    },
+  ]);
+
+  useEffect(() => {
+    if (smallVehicle1Data && smallVehicle1Data.data.length > 0) {
+      setSeriesSmallVehicle1([
+        {
+          ...seriesSmallVehicle1,
+          data: smallVehicle1Data.data
+            .map((smallVehicle1: SmallVehicle1) => ({
+              x: dayjs().to(dayjs(smallVehicle1.created_at)),
+              y: smallVehicle1.small_vehicle,
+            }))
+            .reverse(),
+        },
+      ]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [smallVehicle1IsSuccess]);
+
+  // small vehicle2 graph data
+  const [seriesSmallVehicle2, setSeriesSmallVehicle2] = useState<any>([
+    {
+      name: "small-vehicles-2",
+      data: [],
+      noData: {
+        text: "...loading",
+      },
+    },
+  ]);
+
+  useEffect(() => {
+    if (smallVehicle2Data && smallVehicle2Data.data.length > 0) {
+      setSeriesSmallVehicle2([
+        {
+          ...seriesSmallVehicle2,
+          data: smallVehicle2Data.data
+            .map((smallVehicle2: SmallVehicle2) => ({
+              x: dayjs().to(dayjs(smallVehicle2.created_at)),
+              y: smallVehicle2.small_vehicle,
+            }))
+            .reverse(),
+        },
+      ]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [smallVehicle2IsSuccess]);
+
   // websocket
   const { ws, setIotToken }: any = useContext(WebsocketContext);
 
@@ -196,7 +273,6 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
         ]);
       }
       if (type === "speed_2") {
-        console.log("speed2");
         setSeriesSpeed2([
           {
             ...seriesSpeed2,
@@ -220,9 +296,35 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
           },
         ]);
       }
+      if (type === "small_vehicle_1") {
+        setSeriesSmallVehicle1([
+          {
+            ...seriesSmallVehicle1,
+            data: [...seriesSmallVehicle1[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.small_vehicle }],
+          },
+        ]);
+      }
+      if (type === "small_vehicle_2") {
+        setSeriesSmallVehicle2([
+          {
+            ...seriesSmallVehicle2,
+            data: [...seriesSmallVehicle2[0].data, { x: dayjs().to(dayjs(dateNow)), y: data.small_vehicle }],
+          },
+        ]);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ws.current, setIotToken, seriesSpeed1, speeds1Data, data]);
+  }, [
+    setIotToken,
+    seriesSpeed1,
+    speeds1Data,
+    data,
+    ws,
+    seriesSpeed2,
+    seriesVehicle1,
+    seriesVehicle2,
+    seriesSmallVehicle1,
+    seriesSmallVehicle2,
+  ]);
 
   return (
     <div className="grid grid-cols-12">
@@ -271,6 +373,57 @@ const Graphics: React.FC<Props> = ({ dataUser }) => {
                           {dayjs(vehicle2.created_at).format("dddd, MMMM DD,YYYY h A")}{" "}
                         </span>
                         <span className="ml-1">| {vehicle2.vehicle} Truk/Bus</span>
+                      </div>
+                    ))
+                  : "failed"}
+              </div>
+            </div>
+          </div>
+
+          {/* small vehicle chart */}
+          <div className="p-4 bg-white shadow-xl rounded-xl mt-16">
+            <h1 className="text-center uppercase font-bold text-xl">Non Truck/Bus Detected</h1>
+            <div className="flex justify-between">
+              <div>
+                <h2 className="text-center">System 1</h2>
+                <Chart options={options} series={seriesSmallVehicle1} type="area" width="470" />
+              </div>
+              <div>
+                <h2 className="text-center">System 2</h2>
+                <Chart options={options} series={seriesSmallVehicle2} type="area" width="470" />
+              </div>
+            </div>
+          </div>
+
+          {/* table small vehicle */}
+          <div className="grid grid-cols-2 bg-white p-7 rounded-sm mt-14">
+            <div className="grid-cols-1 p-5">
+              <h1 className="text-center text-xl font-bold">Data Non Truck/Bus From System 1</h1>
+              <div className="bg-gray-200 max-h-64 h-64 p-7 overflow-y-scroll">
+                {smallVehicle1IsSuccess
+                  ? smallVehicle1Data?.data.map((smallVehicle1: SmallVehicle1) => (
+                      <div key={smallVehicle1.id} className="flex py-1 px-1 border-b border-gray-500 text-sm">
+                        <span>
+                          {dayjs().to(dayjs(smallVehicle1.created_at))},{" "}
+                          {dayjs(smallVehicle1.created_at).format("dddd, MMMM DD,YYYY h A")}{" "}
+                        </span>
+                        <span className="ml-1">| {smallVehicle1.small_vehicle} Non truck/bus</span>
+                      </div>
+                    ))
+                  : "failed"}
+              </div>
+            </div>
+            <div className="grid-cols-1 p-5">
+              <h1 className="text-center text-xl font-bold">Data Non Truck/Bus From System 2</h1>
+              <div className="bg-gray-200 p-7 max-h-64 h-64 overflow-y-scroll">
+                {smallVehicle2IsSuccess
+                  ? smallVehicle2Data?.data.map((smallVehicle2: SmallVehicle2) => (
+                      <div key={smallVehicle2.id} className="flex py-1 px-1 border-b border-gray-500 text-sm">
+                        <span>
+                          {dayjs().to(dayjs(smallVehicle2.created_at))},{" "}
+                          {dayjs(smallVehicle2.created_at).format("dddd, MMMM DD,YYYY h A")}{" "}
+                        </span>
+                        <span className="ml-1">| {smallVehicle2.small_vehicle} Non truck/bus</span>
                       </div>
                     ))
                   : "failed"}

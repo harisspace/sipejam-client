@@ -21,6 +21,8 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
   const [speed2, setSpeed2] = useState<number>(0);
   const [vehicle1, setVehicle1] = useState<number>(0);
   const [vehicle2, setVehicle2] = useState<number>(0);
+  const [smallVehicle1, setSmallVehicle1] = useState<number>(0);
+  const [smallVehicle2, setSmallVehicle2] = useState<number>(0);
 
   const { ws, setIotToken }: any = useContext(WebsocketContext);
 
@@ -43,11 +45,12 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
     ws.current.onmessage = (event: any) => {
       console.log("ada message");
       const { data, event: type }: WebsocketEvent = JSON.parse(event.data);
-      console.log(data, type);
       if (type === "speed_1") setSpeed1(data.speed!);
       if (type === "speed_2") setSpeed2(data.speed!);
       if (type === "vehicle_1") setVehicle1(data.vehicle!);
       if (type === "vehicle_2") setVehicle2(data.vehicle!);
+      if (type === "small_vehicle_1") setSmallVehicle1(data.small_vehicle!);
+      if (type === "small_vehicle_2") setSmallVehicle2(data.small_vehicle!);
     };
     ws.current.onclose = () => {
       console.log("close");
@@ -60,7 +63,14 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
       <NavbarLeft dataUser={dataUser} />
       <div className="col-span-10 bg-gray-100 min-h-screen">
         <div className="w-wrapper m-auto mt-5">
-          <Speeds speed_1={speed1} speed_2={speed2} vehicle_1={vehicle1} vehicle_2={vehicle2} />
+          <Speeds
+            speed_1={speed1}
+            speed_2={speed2}
+            vehicle_1={vehicle1}
+            vehicle_2={vehicle2}
+            smallVehicle_1={smallVehicle1}
+            smallVehicle_2={smallVehicle2}
+          />
         </div>
       </div>
     </div>

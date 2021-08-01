@@ -59,19 +59,33 @@ export interface Speed2 {
 
 export interface Vehicle1 {
   id: string;
-  vehicle1_uid: string;
+  vehicles1_uid: string;
   vehicle: number;
   created_at: string;
 }
 
 export interface Vehicle2 {
   id: string;
-  vehicle2_uid: string;
+  vehicles2_uid: string;
   vehicle: number;
   created_at: string;
 }
 
+export interface SmallVehicle1 {
+  id: string;
+  smallvehicles1_uid: string;
+  small_vehicle: number;
+  created_at: string;
+}
+
+export interface SmallVehicle2 {
+  id: string;
+  smallvehicles2_uid: string;
+  small_vehicle: number;
+  created_at: string;
+}
+
 export interface WebsocketEvent {
-  data: { iot_token: string; speed?: number; vehicle?: number };
+  data: { iot_token: string; speed?: number; vehicle?: number; small_vehicle?: number };
   event: string;
 }
