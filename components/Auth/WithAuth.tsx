@@ -8,15 +8,15 @@ import { useRouter } from "next/router";
 const WithAuth = (WrappedComponent: any) => {
   // eslint-disable-next-line react/display-name
   return (props: any) => {
-    const { data, isError, isLoading } = useQuery("checkauth", checkAuth);
+    const { data, isError, isLoading, isSuccess } = useQuery("checkauth", checkAuth);
     const router = useRouter();
     if (isLoading) return <Loader />;
     if (isError) {
       router.push("/signin");
       return null;
     }
-
-    return <WrappedComponent {...props} dataUser={data?.data} />;
+    if (isSuccess && data) return <WrappedComponent {...props} dataUser={data?.data} />;
+    return;
   };
 };
 

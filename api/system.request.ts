@@ -1,5 +1,11 @@
 import axios from "axios";
-import { AddAdminDto, CreateSystemDto, RequestToBeAdminDto } from "../interface/system.interface";
+import {
+  AddAdminDto,
+  CreateSystemDto,
+  RequestToBeAdminDto,
+  UpdateSystemVariables,
+  UploadSystemImageVariables,
+} from "../interface/system.interface";
 
 export const createSystemRequest = async (data: CreateSystemDto) => {
   return await axios.post("/system/create", data);
@@ -59,4 +65,12 @@ export const getAllSmallVehicle1Data = async (system_uid: string) => {
 
 export const getAllSmallVehicle2Data = async (system_uid: string) => {
   return await axios.get(`system/smallvehicle2/${system_uid}`);
+};
+
+export const updateSystem = async ({ updateData, system_uid }: UpdateSystemVariables) => {
+  return await axios.patch(`system/update/${system_uid}`, updateData);
+};
+
+export const uploadSystemImage = async ({ system_uid, imageFile }: UploadSystemImageVariables) => {
+  return await axios.patch(`system/upload/image/${system_uid}`, imageFile);
 };

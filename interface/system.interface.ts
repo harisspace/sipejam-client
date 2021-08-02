@@ -89,3 +89,16 @@ export interface WebsocketEvent {
   data: { iot_token: string; speed?: number; vehicle?: number; small_vehicle?: number };
   event: string;
 }
+
+export interface UpdateSystemVariables {
+  system_uid: string;
+  updateData: {
+    name?: string;
+    placed?: string;
+  };
+}
+
+export interface UploadSystemImageVariables {
+  system_uid: string;
+  imageFile: any;
+}

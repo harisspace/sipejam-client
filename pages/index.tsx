@@ -16,11 +16,13 @@ interface Props {
 const Home: React.FC<Props> = ({ dataUser }) => {
   const user_uid = dataUser ? dataUser.user_uid : null;
 
-  const { data: dataSystems, isLoading } = useQuery(
-    ["system_by_user", user_uid],
-    async () => getSystemsByUserAdmin(user_uid as string),
-    { enabled: !!user_uid }
-  );
+  const {
+    data: dataSystems,
+    isLoading,
+    isSuccess,
+  } = useQuery(["system_by_user", user_uid], async () => getSystemsByUserAdmin(user_uid as string), {
+    enabled: !!user_uid,
+  });
 
   return (
     <>
@@ -32,8 +34,9 @@ const Home: React.FC<Props> = ({ dataUser }) => {
           </Head>
           <div className="bg-gradient-to-b from-primary via-secondary">
             <Navbar dataUser={dataUser} />
-            {isLoading ? <Loader /> : ""}
-            {dataSystems?.data && dataSystems.data.length > 0 && !isLoading ? (
+            {isLoading ? (
+              <Loader />
+            ) : dataSystems && dataSystems.data.length > 0 && isSuccess ? (
               <div className="mt-20">
                 <SystemCardList dataUser={dataUser} dataSystems={dataSystems.data} />
               </div>
