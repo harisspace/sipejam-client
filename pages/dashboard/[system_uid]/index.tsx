@@ -11,12 +11,14 @@ import { useState } from "react";
 import { useContext } from "react";
 import { WebsocketContext } from "../../../contextApi/context/websocket.context";
 import { WebsocketEvent } from "../../../interface/system.interface";
+import CardManual from "../../../components/Templates/Dashboard/CardManual";
 
 interface Props {
   dataUser: UserJwt;
 }
 
 const Dashboard: React.FC<Props> = ({ dataUser }) => {
+  const [systemWork, setSystemWork] = useState<string>("");
   const [speed1, setSpeed1] = useState<number>(0);
   const [speed2, setSpeed2] = useState<number>(0);
   const [vehicle1, setVehicle1] = useState<number>(0);
@@ -34,6 +36,13 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
       enabled: !!system_uid,
     }
   );
+
+  // when component did mount get localstorage system-work
+  useEffect(() => {
+    let systemWorkFromLocal = localStorage.getItem("system-work") || "auto";
+    console.log(systemWorkFromLocal);
+    setSystemWork(systemWorkFromLocal);
+  }, []);
 
   useEffect(() => {
     if (!data) return;
@@ -63,14 +72,28 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
       <NavbarLeft dataUser={dataUser} />
       <div className="col-span-10 bg-gray-100 min-h-screen">
         <div className="w-wrapper m-auto mt-5">
-          <Speeds
-            speed_1={speed1}
-            speed_2={speed2}
-            vehicle_1={vehicle1}
-            vehicle_2={vehicle2}
-            smallVehicle_1={smallVehicle1}
-            smallVehicle_2={smallVehicle2}
-          />
+          {systemWork === "automatic" ? (
+            <Speeds
+              speed_1={speed1}
+              speed_2={speed2}
+              vehicle_1={vehicle1}
+              vehicle_2={vehicle2}
+              smallVehicle_1={smallVehicle1}
+              smallVehicle_2={smallVehicle2}
+            />
+          ) : (
+            <>
+              <h1 className="text-center uppercase text-xl mb-5">Manual</h1>
+              <div className="flex justify-center">
+                <CardManual title="On/Off System 1" icon="on" />
+                <CardManual title="On/Off System 2" icon="on" />
+              </div>
+              <div className="flex justify-between">
+                <CardManual title="Warna Rambu Peringatan System 1" icon="on" />
+                <CardManual title="Warna Rambu Peringatan System 2" icon="on" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

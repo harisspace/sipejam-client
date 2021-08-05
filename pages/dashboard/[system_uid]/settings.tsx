@@ -1,4 +1,6 @@
-import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { ChangeEvent } from "react";
 import WithAuth from "../../../components/Auth/WithAuth";
 import NavbarLeft from "../../../components/Templates/NavbarLeft";
 import { UserJwt } from "../../../interface/user.interface";
@@ -8,6 +10,24 @@ interface Props {
 }
 
 const Settings: React.FC<Props> = ({ dataUser }) => {
+  const [systemWork, setSystemWork] = useState<string>("");
+
+  useEffect(() => {
+    console.log(systemWork);
+    setSystemWork(localStorage.getItem("system-work") || "automatic");
+  }, [systemWork]);
+
+  // function
+  const handleLanguage = () => {};
+
+  const handleSystemWork = (e: ChangeEvent<HTMLSelectElement>) => {
+    e.preventDefault();
+    localStorage.setItem("system-work", e.target.value.toLowerCase());
+    setSystemWork(e.target.value.toLowerCase());
+  };
+
+  const handleStatus = () => {};
+
   return (
     <div className="grid grid-cols-12">
       <NavbarLeft dataUser={dataUser} />
@@ -18,29 +38,24 @@ const Settings: React.FC<Props> = ({ dataUser }) => {
             <form>
               <div className="flex justify-between">
                 <span className="text-primary">Languange</span>
-                <select name="language" id="language">
+                <select name="language" id="language" onChange={handleLanguage}>
                   <option value="idn">Indonesia</option>
                   <option value="en">English</option>
                 </select>
               </div>
               <div className="flex justify-between mt-14">
                 <span className="text-primary">Automatic/Manual For System Works</span>
-                <select name="systemWork" id="systemWork">
-                  <option>Automatic</option>
-                  <option>Manual</option>
+                <select name="systemWork" id="systemWork" onChange={handleSystemWork} value={systemWork}>
+                  <option value="automatic">Automatic</option>
+                  <option value="manual">Manual</option>
                 </select>
               </div>
               <div className="flex justify-between mt-14">
                 <span className="text-primary">Status</span>
-                <select name="status" id="status">
+                <select name="status" id="status" onChange={handleStatus}>
                   <option>On</option>
                   <option>Off</option>
                 </select>
-              </div>
-              <div className="flex justify-center mt-10 w-full">
-                <button className="btn" type="submit">
-                  Save
-                </button>
               </div>
             </form>
           </div>

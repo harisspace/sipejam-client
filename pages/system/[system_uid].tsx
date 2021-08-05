@@ -34,7 +34,7 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
   const router = useRouter();
   const { system_uid } = router.query;
 
-  const { isLoading, data, isSuccess, refetch } = useQuery(
+  const { isLoading, data, isSuccess } = useQuery(
     ["system", system_uid],
     () => getSpecificSystem(system_uid as string),
     {
@@ -138,7 +138,7 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
                 {isUpdate ? (
                   <input
                     className="input"
-                    value={nameValue.toUpperCase()}
+                    value={nameValue}
                     onChange={(e) => setNameValue(e.target.value)}
                   ></input>
                 ) : (

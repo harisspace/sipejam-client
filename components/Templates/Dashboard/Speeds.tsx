@@ -20,7 +20,7 @@ const Speeds: React.FC<Props> = ({
 }) => {
   return (
     <>
-      <h1 className="text-center uppercase text-xl  mb-5">Kecepatan Dan Banyak Kendaraan</h1>
+      <h1 className="text-center uppercase text-xl mb-5">Kecepatan Dan Banyak Kendaraan</h1>
       <div>
         <div className="flex justify-center">
           <Card title="Kecepatan 1" value={speed_1} unit={"Km/Jam"} icon="speed" />
