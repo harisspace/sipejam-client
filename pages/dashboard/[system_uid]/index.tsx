@@ -85,12 +85,12 @@ const Dashboard: React.FC<Props> = ({ dataUser }) => {
             <>
               <h1 className="text-center uppercase text-xl mb-5">Manual</h1>
               <div className="flex justify-center">
-                <CardManual title="On/Off System 1" icon="on" />
-                <CardManual title="On/Off System 2" icon="on" />
+                <CardManual meta="power" title="On/Off System 1" icon="on" />
+                <CardManual meta="power" title="On/Off System 2" icon="on" />
               </div>
               <div className="flex justify-between">
-                <CardManual title="Warna Rambu Peringatan System 1" icon="on" />
-                <CardManual title="Warna Rambu Peringatan System 2" icon="on" />
+                <CardManual meta="lamp" title="Warna Rambu Peringatan System 2" icon="on" />
+                <CardManual meta="lamp" title="Warna Rambu Peringatan System 1" icon="on" />
               </div>
             </>
           )}
