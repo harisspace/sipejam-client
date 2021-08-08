@@ -8,7 +8,7 @@ const GoogleOAuth = () => {
   const path = router.pathname.split("/")[1];
 
   return (
-    <div className="bg-blue-500  w-8/12 rounded-sm shadow-lg cursor-pointer">
+    <div className="bg-blue-500  sm:w-8/12 rounded-sm shadow-lg cursor-pointer">
       <Link href="/auth/oauth/google">
         <a className="p-1 flex items-center">
           <div className="p-1 bg-white">

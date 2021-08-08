@@ -38,30 +38,32 @@ const SystemCard: React.FC<Props> = ({
     <>
       {isSuccess ? <Notification message="Request success send" /> : ""}
       {isError ? <Notification message="Request already send, please wait for confirmation" /> : ""}
-      <div>
-        <div className="grid bg-white grid-cols-4 rounded-lg mt-10 w-3/6 m-auto py-5 px-4">
-          <div className="mr-5 col-span-1">
+      <div className="w-wrapper m-auto">
+        <div className="sm:grid bg-white sm:grid-cols-4 rounded-lg mt-10 sm:w-3/6 m-auto sm:py-5 sm:px-4">
+          <div className="mr-5 sm:col-span-1 w-full">
             <Image
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${image_uri}`}
               alt={name}
+              className="rounded-lg sm:rounded-none"
               height={100}
+              layout="responsive"
               width={100}
             />
           </div>
-          <div className="flex flex-col justify-between col-span-2">
-            <div>
+          <div className="ml-3 flex flex-col justify-between sm:col-span-2">
+            <div className="flex flex-col items-center sm:items-start sm:flex-none">
               <a className="font-bold uppercase text-xl" href={`/system/${system_uid}`}>
                 {name}
               </a>
-              <span className="flex items-center text-sm text-primary">
+              <span className="flex text-sm text-primary">
                 <MdPlace />
-                <span className="ml-1">{placed}</span>
+                <span>{placed}</span>
               </span>
             </div>
-            <div className="">
-              <span className="flex items-center text-sm text-secondary">
+            <div className="items-center sm:items-start">
+              <span className="flex justify-center sm:justify-start text-sm text-secondary">
                 <RiAdminLine />
-                <span className="ml-1">{username}</span>
+                <span>{username}</span>
               </span>
             </div>
           </div>

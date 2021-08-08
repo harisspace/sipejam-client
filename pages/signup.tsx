@@ -29,13 +29,13 @@ const Signup = () => {
       {isLoading ? <Loader /> : ""}
       <div>
         <div>
-          <div className="grid grid-cols-8 max-h-screen h-screen">
-            <div className="col-span-2 bg-gradient-to-l from-primary to-secondary">
+          <div className="md:grid md:grid-cols-8 max-h-screen h-screen">
+            <div className="sm:col-span-2 bg-gradient-to-l from-primary to-secondary hidden lg:block">
               <div className="bg-sistem h-screen bg-contain bg-no-repeat bg-center"></div>
             </div>
 
-            <div className="col-span-6 flex items-center">
-              <div className="ml-3 p-8 w-6/12 shadow-lg">
+            <div className="md:col-span-6 flex items-center lg:justify-start sm:justify-center">
+              <div className="ml-3 p-8 sm:w-full lg:w-6/12 shadow-lg mt-5">
                 <h1>LOGO</h1>
                 <GoogleOAuth />
 

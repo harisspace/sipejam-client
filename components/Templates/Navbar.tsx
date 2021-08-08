@@ -43,7 +43,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
             </Link>
           </span>
         )}
-        <div>
+        <div className="sm:block hidden">
           {dataUser ? (
             // login view
             <ul className="flex">
