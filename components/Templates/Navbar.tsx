@@ -7,6 +7,8 @@ import { UserJwt } from "../../interface/user.interface";
 import Image from "next/image";
 import React from "react";
 import { IoCreateOutline } from "react-icons/io5";
+import { VscSignIn } from "react-icons/vsc";
+import { BsQuestion } from "react-icons/bs";
 
 interface Props {
   dataUser?: UserJwt;
@@ -15,7 +17,7 @@ interface Props {
 const Navbar: React.FC<Props> = ({ dataUser }) => {
   return (
     <div className="w-full shadow-md sticky top-0 z-10">
-      <div className="flex justify-between items-center py-3 w-wrapper m-auto">
+      <div className="flex justify-between sm:justify-end items-center py-3 sm:py-1 sm:text-sm w-wrapper m-auto">
         {dataUser ? (
           <div>
             <Link href={`/user/${dataUser.user_uid}`}>
@@ -41,18 +43,22 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
           </span>
         )}
         {/* mobile only */}
-        <div className="sm:hidden">
-          <Link href="/signout">
-            <a className="text-xl">
-              <AiOutlineLogout />
-            </a>
-          </Link>
-        </div>
+        {dataUser ? (
+          <div className="sm:hidden">
+            <Link href="/signout">
+              <a className="text-xl">
+                <AiOutlineLogout />
+              </a>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
         {/* ------------------------- */}
-        <div className="sm:block fixed left-0 w-full bottom-0 py-2 bg-white md:bg-transparent sm:static">
+        <div className="left-0 fixed w-full bottom-0 py-4 sm:py-1 bg-white md:bg-transparent sm:static">
           {dataUser ? (
             // login view
-            <ul className="flex justify-evenly">
+            <ul className="flex justify-between sm:justify-end">
               <li className="sm:mr-8">
                 <Link href="/">
                   <a className="flex flex-col items-center">
@@ -109,20 +115,29 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
             </ul>
           ) : (
             // not login view
-            <ul className="flex">
-              <li className="mr-8">
+            <ul className="flex w-wrapper sm:w-full m-auto justify-between sm:justify-end text-lg sm:text-sm">
+              <li className="sm:mr-5">
                 <Link href="/">
-                  <a>Home</a>
+                  <a className="flex flex-col items-center">
+                    <AiOutlineHome />
+                    <span className="hidden sm:block">Home</span>
+                  </a>
                 </Link>
               </li>
-              <li className="mr-8">
+              <li className="sm:mr-5">
                 <Link href="/about">
-                  <a>About</a>
+                  <a className="flex flex-col items-center">
+                    <BsQuestion />
+                    <span className="hidden sm:block">About</span>
+                  </a>
                 </Link>
               </li>
-              <li className="">
+              <li>
                 <Link href="/signin">
-                  <a>Signin</a>
+                  <a className="flex flex-col items-center">
+                    <VscSignIn />
+                    <span className="hidden sm:block">Signin</span>
+                  </a>
                 </Link>
               </li>
             </ul>
