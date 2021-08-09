@@ -110,10 +110,12 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
       {deleteLoading ? <Loader /> : null}
       {deleteSuccess ? <Notification message="Delete Success" /> : null}
       {showModal ? (
-        <ReactModal
-          title="Are you sure want to delete this system?"
-          body="Menghapus sistem akan menghapus segala setting dan IoT token"
-        />
+        <div className="w-wrapper">
+          <ReactModal
+            title="Are you sure want to delete this system?"
+            body="Menghapus sistem akan menghapus segala setting dan IoT token"
+          />
+        </div>
       ) : null}
 
       {isLoading && !data ? (
@@ -121,7 +123,7 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
       ) : (
         <div className="bg-white h-screen">
           <Navbar dataUser={dataUser} />
-          <div className=" w-1/2 p-10 m-auto rounded-lg shadow-xl">
+          <div className="sm:w-1/2 p-3 sm:p-10 m-auto rounded-lg shadow-xl">
             {/* top */}
             <div className="flex items-center mb-8">
               <div className="w-14 h-14">
