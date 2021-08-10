@@ -125,7 +125,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                 </Link>
               </li>
               <li className="sm:mr-5">
-                <Link href="/about">
+                <Link href="#about">
                   <a className="flex flex-col items-center">
                     <BsQuestion />
                     <span className="hidden sm:block">About</span>
