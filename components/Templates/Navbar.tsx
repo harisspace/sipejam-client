@@ -29,7 +29,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                   height={30}
                   alt={dataUser.username}
                 />
-                <span className="ml-2 ">{dataUser.username}</span>
+                <span className="ml-2 whitespace-nowrap">{dataUser.username}</span>
               </a>
             </Link>
           </div>

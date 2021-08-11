@@ -201,7 +201,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
                   <div className="flex flex-col justify-center items-center pb-7">
                     <div>
                       <Image
-                        className="shadow-2xl rounded-full max-w-full h-full w-full align-middle border-none"
+                        className="shadow-lg rounded-full max-w-full h-full w-full align-middle border-none"
                         width={200}
                         height={200}
                         src={`/images/${value.img}.png`}
