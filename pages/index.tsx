@@ -175,6 +175,12 @@ const Home: React.FC<Props> = ({ dataUser }) => {
               saat melewati tikungan tajam tersebut.
             </p>
           </div>
+          {/* video */}
+          <div className="mt-20 m-auto w-wrapper">
+            <video width="500" height="300" autoPlay controls className="rounded-lg m-auto">
+              <source src="/videos/animation.m4v" type="video/mp4" />
+            </video>
+          </div>
           {/* about us */}
           <div className="mt-20 sm:mt-32 sm:w-3/4 m-auto shadow-lg rounded-lg p-6">
             <h3 className="text-center text-2xl font-bold text-green-400">Siapa Kami?</h3>
