@@ -176,8 +176,8 @@ const Home: React.FC<Props> = ({ dataUser }) => {
             </p>
           </div>
           {/* video */}
-          <div className="mt-20 m-auto w-wrapper">
-            <video width="500" height="300" controls className="rounded-lg m-auto">
+          <div className="mt-20 m-auto w-wrapper sm:w-3/4">
+            <video controls className="rounded-lg m-auto">
               <source src="/videos/animation.m4v" type="video/mp4" />
             </video>
           </div>
