@@ -1,13 +1,12 @@
+import Head from "next/head";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { createSystemRequest } from "../../api/system.request";
 import WithAuth from "../../components/Auth/WithAuth";
 import Loader from "../../components/Templates/Loader";
 import Navbar from "../../components/Templates/Navbar";
-import { CreateSystemDto } from "../../interface/system.interface";
 import Notification from "../../components/Notification";
 import { UserJwt } from "../../interface/user.interface";
-import ReactModal from "../../components/Templates/ReactModal";
 import ReactModalInfo from "../../components/Templates/ReactModalInfo";
 import { useContext } from "react";
 import { ModalContext } from "../../contextApi/context/modal.context";
@@ -55,6 +54,25 @@ const Create: React.FC<Props> = ({ dataUser }) => {
 
   return (
     <>
+      <Head>
+        <title>Create System</title>
+        <meta property="og:title" content="Create System" />
+        <meta
+          name="description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta
+          name="keywords"
+          content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+        />
+        <meta
+          name="og:description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta name="og:site_name" content="sipejamunand.com" />
+        <meta name="og:url" content="sipejamunand.com" />
+      </Head>
+
       {isLoading ? <Loader /> : ""}
       {isError ? <Notification message={(error as any)?.response.data.message} /> : ""}
       {isSuccess ? <Notification message="System created" /> : ""}

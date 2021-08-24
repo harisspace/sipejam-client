@@ -8,6 +8,7 @@ import { useMutation } from "react-query";
 import Loader from "../components/Templates/Loader";
 import { ISignup } from "../interface/user.interface";
 import NoAuth from "../components/Auth/NoAuth";
+import Head from "next/head";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -25,6 +26,24 @@ const Signup = () => {
 
   return (
     <>
+      <Head>
+        <title>Signup</title>
+        <meta property="og:title" content="Signup" />
+        <meta
+          name="description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta
+          name="keywords"
+          content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+        />
+        <meta
+          name="og:description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta name="og:site_name" content="sipejamunand.com" />
+        <meta name="og:url" content="sipejamunand.com" />
+      </Head>
       {!isLoading && data ? <Notification message="We will send you email, please confirm your account" /> : ""}
       {isLoading ? <Loader /> : ""}
       <div>

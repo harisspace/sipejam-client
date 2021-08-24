@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Head from "next/head";
 import React from "react";
 import { useQuery } from "react-query";
 import { getSystemsByUserNotAdmin } from "../../api/system.request";
@@ -22,6 +23,24 @@ const System: React.FC<Props> = ({ dataUser }) => {
 
   return (
     <>
+      <Head>
+        <title>System</title>
+        <meta property="og:title" content="System" />
+        <meta
+          name="description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta
+          name="keywords"
+          content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+        />
+        <meta
+          name="og:description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta name="og:site_name" content="sipejamunand.com" />
+        <meta name="og:url" content="sipejamunand.com" />
+      </Head>
       {isLoading ? <Loader /> : ""}
       <Navbar dataUser={dataUser} />
       <div className="bg-gray-100">

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React, { MouseEvent, useState, ChangeEvent } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
@@ -112,6 +113,24 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
 
   return (
     <>
+      <Head>
+        <title>System</title>
+        <meta property="og:title" content="System" />
+        <meta
+          name="description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta
+          name="keywords"
+          content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+        />
+        <meta
+          name="og:description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta name="og:site_name" content="sipejamunand.com" />
+        <meta name="og:url" content="sipejamunand.com" />
+      </Head>
       {deleteLoading ? <Loader /> : null}
       {deleteSuccess ? <Notification message="Delete Success" /> : null}
       {isSuccessUploadImage ? <Notification message="Image updated" /> : null}

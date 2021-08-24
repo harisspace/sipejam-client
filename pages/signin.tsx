@@ -1,5 +1,6 @@
-import GoogleOAuth from "../components/Templates/GoogleOAuth";
 import Link from "next/link";
+import Head from "next/head";
+import GoogleOAuth from "../components/Templates/GoogleOAuth";
 import classNames from "classnames";
 import { FormEvent, useState } from "react";
 import { sendmailRequest, signinRequest } from "../api/user.request";
@@ -45,6 +46,24 @@ const Signin = () => {
 
   return (
     <>
+      <Head>
+        <title>Signin</title>
+        <meta property="og:title" content="Signin" />
+        <meta
+          name="description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta
+          name="keywords"
+          content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+        />
+        <meta
+          name="og:description"
+          content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+        />
+        <meta name="og:site_name" content="sipejamunand.com" />
+        <meta name="og:url" content="sipejamunand.com" />
+      </Head>
       {isLoading ? <Loader /> : ""}
       <div>
         <div>

@@ -119,6 +119,21 @@ const Home: React.FC<Props> = ({ dataUser }) => {
         <div>
           <Head>
             <title>Home</title>
+            <meta property="og:title" content="Home" />
+            <meta
+              name="description"
+              content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+            />
+            <meta
+              name="keywords"
+              content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+            />
+            <meta
+              name="og:description"
+              content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+            />
+            <meta name="og:site_name" content="sipejamunand.com" />
+            <meta name="og:url" content="sipejamunand.com" />
           </Head>
           <div className="bg-gradient-to-b from-primary via-secondary">
             <Navbar />
