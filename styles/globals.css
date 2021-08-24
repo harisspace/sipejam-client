@@ -18,7 +18,11 @@
 }
 
 .btn {
-  @apply cursor-pointer block bg-secondary text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150
+  @apply cursor-pointer block bg-green-500 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150
+}
+
+.btn-lg {
+  @apply bg-green-500 text-white w-full py-1 px-6 hover:bg-green-300 font-bold rounded-xl
 }
 
 .swiper-slide {
