@@ -97,7 +97,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
             {isLoading ? (
               <Loader />
             ) : dataSystems && dataSystems.data.length > 0 && isSuccess ? (
-              <div className="bg-gray-100 pt-10">
+              <div className="bg-gray-100 min-h-screen pt-10">
                 <SystemCardList dataUser={dataUser} dataSystems={dataSystems.data} />
               </div>
             ) : (

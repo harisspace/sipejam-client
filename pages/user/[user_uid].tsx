@@ -39,7 +39,7 @@ const GetSpecificUser: React.FC<Props> = ({ dataUser }) => {
     <>
       <div className="min-h-screen">
         <Navbar dataUser={dataUser} />
-        <div className="m-auto py-10 bg-gray-100">
+        <div className="m-auto py-10 bg-gray-100 min-h-screen">
           {isLoading && !data ? (
             <Loader />
           ) : (

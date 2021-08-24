@@ -87,7 +87,7 @@ const Create: React.FC<Props> = ({ dataUser }) => {
       )}
       <div>
         <Navbar dataUser={dataUser} />
-        <div className="bg-gray-100 py-10">
+        <div className="bg-gray-100 min-h-screen py-10">
           <div className="shadow-xl sm:w-2/3 rounded-xl m-auto p-5 bg-secondary">
             <h1 className="text-center text-xl">Create New System</h1>
             <form onSubmit={handleSubmit}>

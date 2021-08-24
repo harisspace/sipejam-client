@@ -26,7 +26,7 @@ const UserCreated: React.FC<Props> = ({ dataUser }) => {
   return (
     <div>
       <Navbar dataUser={dataUser} />
-      <div className="bg-gray-100 py-20">
+      <div className="bg-gray-100 min-h-screen py-20">
         {isLoading ? <Loader /> : ""}
         {data ? (
           <div>

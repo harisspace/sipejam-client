@@ -27,7 +27,7 @@ const NotificationPage: React.FC<Props> = ({ dataUser }) => {
     <div>
       <Navbar dataUser={dataUser} />
       {isLoading ? <Loader /> : ""}
-      <div className="bg-gray-100">
+      <div className="bg-gray-100 min-h-screen">
         {data?.data && data.data.length > 0 ? (
           <NotificationCardList dataNotifications={data.data} refetch={refetch} />
         ) : (

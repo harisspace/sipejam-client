@@ -11,12 +11,22 @@ import { IoCreateOutline } from "react-icons/io5";
 import { VscSignIn } from "react-icons/vsc";
 import { BsQuestion } from "react-icons/bs";
 import { Link as LinkScroll } from "react-scroll";
+import { useQuery } from "react-query";
+import { getUserNotification } from "../../api/user.request";
 
 interface Props {
   dataUser?: UserJwt;
 }
 
 const Navbar: React.FC<Props> = ({ dataUser }) => {
+  const { data: dataNotifications, isSuccess: isSuccessNotifications } = useQuery(
+    ["notifications", dataUser?.user_uid],
+    () => getUserNotification(dataUser?.user_uid as string),
+    {
+      enabled: !!dataUser?.user_uid,
+    }
+  );
+
   return (
     <div className="w-full shadow-md sticky top-0 z-10">
       <div className="flex justify-between sm:justify-end items-center py-3 sm:py-1 sm:text-sm w-wrapper m-auto">
@@ -96,7 +106,12 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                       </a>
                     </Link>
                   </li>
-                  <li className="sm:mr-8 cursor-pointer hover:text-blue-500">
+                  <li className="sm:mr-8 cursor-pointer hover:text-blue-500 relative">
+                    {isSuccessNotifications && dataNotifications?.data.length > 0 ? (
+                      <span className="absolute text-xs top-0 right-5 bg-red-400 px-1 font-bold rounded-full">
+                        {dataNotifications?.data.length}
+                      </span>
+                    ) : null}
                     <Link href={`/user/notification/${dataUser.user_uid}`}>
                       <a className="flex flex-col items-center">
                         <IoIosNotificationsOutline />
