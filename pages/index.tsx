@@ -126,7 +126,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
             />
             <meta
               name="keywords"
-              content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+              content="SIPEJAM, sipejam, sipejam, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
             />
             <meta
               name="og:description"
