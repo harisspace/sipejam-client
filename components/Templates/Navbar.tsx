@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 import Link from "next/link";
 import { AiOutlinePlus, AiOutlineSearch } from "react-icons/ai";
@@ -38,7 +39,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
           <span>
             <Link href="/">
               <a>
-                <h1>LOGO</h1>
+                <img className="w-28 object-contain" src="/sipejam-logo.png" alt="sipejam logo" />
               </a>
             </Link>
           </span>
