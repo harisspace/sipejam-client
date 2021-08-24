@@ -25,11 +25,11 @@ const UserCreated: React.FC<Props> = ({ dataUser }) => {
 
   return (
     <div>
-      <div>
-        <Navbar dataUser={dataUser} />
+      <Navbar dataUser={dataUser} />
+      <div className="bg-gray-100 py-20">
         {isLoading ? <Loader /> : ""}
         {data ? (
-          <div className="mt-20">
+          <div>
             {data.data.map((systemAndUser: SystemAndUser) => (
               <SystemCard
                 fromUser={dataUser}

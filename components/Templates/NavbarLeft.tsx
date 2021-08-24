@@ -31,7 +31,7 @@ const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
 
   return (
     <>
-      <div className="col-span-2">
+      <div className="col-span-2 bg-gradient-to-b from-primary via-green-100 to-blue-400">
         <div className="flex flex-col items-center p-6 shadow-sm">
           <div className="flex flex-wrap justify-center">
             <div className="w-20 h-18">

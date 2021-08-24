@@ -39,14 +39,14 @@ const GetSpecificUser: React.FC<Props> = ({ dataUser }) => {
     <>
       <div className="min-h-screen">
         <Navbar dataUser={dataUser} />
-        <div className="w-wrapper m-auto">
+        <div className="m-auto py-10 bg-gray-100">
           {isLoading && !data ? (
             <Loader />
           ) : (
-            <div className="sm:w-1/2 p-10 m-auto rounded-lg shadow-xl">
+            <div className="sm:w-1/2 p-4 m-auto rounded-lg shadow-xl bg-secondary">
               <div className="flex-col flex">
                 <h1 className="text-2xl">{data?.data.username}</h1>
-                <span className="text-xs text-primary">{data?.data.user_role}</span>
+                <span className="text-xs text-red-500">{data?.data.user_role}</span>
                 <div className="flex justify-center mt-4">
                   <Image
                     src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${data?.data.image_uri}`}
