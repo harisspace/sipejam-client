@@ -69,31 +69,39 @@ const Create: React.FC<Props> = ({ dataUser }) => {
       )}
       <div>
         <Navbar dataUser={dataUser} />
-        <div className="shadow-xl w-1/3 rounded-xl m-auto p-5 mt-10 bg-primary">
-          <h1 className="text-center text-xl">Create New System</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="m-auto text-sm mt-3">
-              <label htmlFor="name">Name*</label>
-              <input type="text" className="input" id="name" onChange={(e) => setName(e.target.value)} />
-            </div>
-            <div className="m-auto text-sm mt-3">
-              <label htmlFor="place">Place*</label>
-              <input
-                className="input"
-                name="placed"
-                type="text"
-                id="place"
-                onChange={(e) => setPlaced(e.target.value)}
-              />
-            </div>
-            <div className="m-auto text-sm mt-3">
-              <label htmlFor="image">Upload Image*</label>
-              <input className="block" type="file" id="image" onChange={handleImageChange} />
-            </div>
-            <div className="flex justify-center">
-              <input type="submit" className="btn bg-white" />
-            </div>
-          </form>
+        <div className="bg-gray-100 py-10">
+          <div className="shadow-xl sm:w-2/3 rounded-xl m-auto p-5 bg-secondary">
+            <h1 className="text-center text-xl">Create New System</h1>
+            <form onSubmit={handleSubmit}>
+              <div className="m-auto text-sm mt-3">
+                <label htmlFor="name">
+                  Name <span className="text-red-500">*</span>
+                </label>
+                <input type="text" className="input" id="name" onChange={(e) => setName(e.target.value)} />
+              </div>
+              <div className="m-auto text-sm mt-3">
+                <label htmlFor="place">
+                  Place <span className="text-red-500">*</span>
+                </label>
+                <input
+                  className="input"
+                  name="placed"
+                  type="text"
+                  id="place"
+                  onChange={(e) => setPlaced(e.target.value)}
+                />
+              </div>
+              <div className="m-auto text-sm mt-3">
+                <label htmlFor="image">
+                  Upload Image <span className="text-red-500">*</span>
+                </label>
+                <input className="block" type="file" id="image" onChange={handleImageChange} />
+              </div>
+              <div className="flex justify-center">
+                <input type="submit" className="btn" />
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </>

@@ -25,7 +25,7 @@ const UserCreated: React.FC<Props> = ({ dataUser }) => {
 
   return (
     <div>
-      <div className="bg-gradient-to-b from-primary via-secondary">
+      <div>
         <Navbar dataUser={dataUser} />
         {isLoading ? <Loader /> : ""}
         {data ? (

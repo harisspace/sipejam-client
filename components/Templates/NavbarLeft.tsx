@@ -9,14 +9,25 @@ import { useState } from "react";
 import { UserJwt } from "../../interface/user.interface";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 interface Props {
   dataUser: UserJwt;
 }
 
 const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
-  const [path, setPath] = useState("");
+  const router = useRouter();
+
+  const [path, setPath] = useState<string>("");
   const { system_uid } = useRouter().query;
+
+  useEffect(() => {
+    if (!router.isReady) return;
+    const pathNow = router.pathname.split("/")[3] || "dashboard";
+
+    setPath(pathNow);
+    console.log(pathNow);
+  }, [router]);
 
   return (
     <>
@@ -38,13 +49,13 @@ const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
 
         <div className="flex flex-col mt-8">
           <ul className="w-full text-center">
-            <li className={classNames("mb-3 flex justify-center items-center", { "bg-gray-400": path === "/" })}>
+            <li className="mb-3 flex justify-center items-center hover:text-blue-500">
               <AiOutlineHome />
               <Link href="/">
                 <a className="ml-2">Home</a>
               </Link>
             </li>
-            <li className={classNames("mb-3", { "bg-gray-400": path === "/" })}>
+            <li className={classNames("mb-3 hover:text-blue-500", { "bg-gray-400": path === "detail" })}>
               <Link href={`/dashboard/${system_uid}/detail`}>
                 <a className="flex justify-center items-center cursor-pointer">
                   <AiOutlineProfile />
@@ -53,7 +64,7 @@ const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
               </Link>
             </li>
             <li
-              className={classNames("mb-3", {
+              className={classNames("mb-3 hover:text-blue-500", {
                 "bg-gray-400": path === "dashboard",
               })}
             >
@@ -65,30 +76,30 @@ const NavbarLeft: React.FC<Props> = ({ dataUser: { image_uri, username } }) => {
               </Link>
             </li>
             <li
-              className={classNames("mb-3 flex justify-center items-center", {
+              className={classNames("mb-3 flex justify-center items-center hover:text-blue-500", {
                 "bg-gray-400": path === "graphics",
               })}
             >
               <Link href={`/dashboard/${system_uid}/graphics`}>
-                <a className="cursor-pointer flex justify-center items-center">
+                <a className="cursor-pointer flex justify-center items-center hover:text-blue-500">
                   <BsGraphUp />
                   <span className="ml-2">Graphics</span>
                 </a>
               </Link>
             </li>
             <li
-              className={classNames("mb-3", {
+              className={classNames("mb-3 hover:text-blue-500", {
                 "bg-gray-400": path === "settings",
               })}
             >
               <Link href={`/dashboard/${system_uid}/settings`}>
-                <a className="cursor-pointer flex justify-center items-center">
+                <a className="cursor-pointer flex justify-center items-center hover:text-blue-500">
                   <IoSettingsOutline />
                   <span className="ml-2">Settings</span>
                 </a>
               </Link>
             </li>
-            <li className="mb-3 flex justify-center items-center">
+            <li className="mb-3 flex justify-center items-center hover:text-blue-500">
               <AiOutlineLogout />
               <a href="/signout">Signout</a>
             </li>

@@ -15,7 +15,7 @@ interface Props {
 
 const SystemCardList: React.FC<Props> = ({ dataSystems, dataUser }) => {
   return (
-    <div>
+    <>
       {dataSystems.map(({ users, systems }) => (
         <SystemCard
           fromUser={dataUser}
@@ -25,7 +25,7 @@ const SystemCardList: React.FC<Props> = ({ dataSystems, dataUser }) => {
           key={systems.system_uid}
         />
       ))}
-    </div>
+    </>
   );
 };
 

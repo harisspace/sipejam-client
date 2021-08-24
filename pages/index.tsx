@@ -11,6 +11,7 @@ import { UserJwt } from "../interface/user.interface";
 import WithAuthChangeView from "../components/Auth/WithAuthChangeView";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+import { Element } from "react-scroll";
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
@@ -75,13 +76,28 @@ const Home: React.FC<Props> = ({ dataUser }) => {
         <div>
           <Head>
             <title>Home</title>
+            <meta property="og:title" content="Home" />
+            <meta
+              name="description"
+              content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+            />
+            <meta
+              name="keywords"
+              content="SIPEJAM, PKM-KC, PIMNAS, tikungan tajam, computer vision, internet of things, sistem pintar pengatur jalan, sipejamunand.com"
+            />
+            <meta
+              name="og:description"
+              content="SIPEJAM atau Sistem Pintar Pengatur jalan merupakan sebuah sistem yang digunakan untuk mengatur dan memberikan keamanan pengendara di tikungan tajam"
+            />
+            <meta name="og:site_name" content="sipejamunand.com" />
+            <meta name="og:url" content="sipejamunand.com" />
           </Head>
-          <div className="bg-gradient-to-b from-primary via-secondary">
+          <div>
             <Navbar dataUser={dataUser} />
             {isLoading ? (
               <Loader />
             ) : dataSystems && dataSystems.data.length > 0 && isSuccess ? (
-              <div className="mt-20">
+              <div className="bg-gray-100 pt-10">
                 <SystemCardList dataUser={dataUser} dataSystems={dataSystems.data} />
               </div>
             ) : (
@@ -149,7 +165,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
 
           {/* about */}
           <h3 className="text-center text-3xl sm:text-4xl mb-5 mt-48 font-bold">
-            <a target="about">About</a>
+            <Element name="about">About</Element>
           </h3>
           <div className="flex justify-evenly mt-20 sm:mt-32 w-2/4 m-auto">
             <Image src="/images/tut-wuri-handayani.png" width={100} height={100} alt="Logo Tut Wuri Handayani" />

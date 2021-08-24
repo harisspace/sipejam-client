@@ -24,23 +24,25 @@ const NotificationPage: React.FC<Props> = ({ dataUser }) => {
   );
 
   return (
-    <div className="bg-gradient-to-b from-primary via-secondary">
+    <div>
       <Navbar dataUser={dataUser} />
       {isLoading ? <Loader /> : ""}
-      {data?.data && data.data.length > 0 ? (
-        <NotificationCardList dataNotifications={data.data} refetch={refetch} />
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          <Image
-            className="object-contain"
-            height={500}
-            width={500}
-            src="/images/empty.png"
-            alt="You already admin all System"
-          />
-          <span>There is no notification, happy good day</span>
-        </div>
-      )}
+      <div className="bg-gray-100">
+        {data?.data && data.data.length > 0 ? (
+          <NotificationCardList dataNotifications={data.data} refetch={refetch} />
+        ) : (
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              className="object-contain"
+              height={500}
+              width={500}
+              src="/images/empty.png"
+              alt="You already admin all System"
+            />
+            <span>There is no notification, happy good day</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

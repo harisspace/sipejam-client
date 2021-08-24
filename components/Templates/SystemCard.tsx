@@ -38,8 +38,8 @@ const SystemCard: React.FC<Props> = ({
     <>
       {isSuccess ? <Notification message="Request success send" /> : ""}
       {isError ? <Notification message="Request already send, please wait for confirmation" /> : ""}
-      <div className="w-wrapper m-auto">
-        <div className="sm:grid bg-white sm:grid-cols-4 rounded-lg mt-10 sm:w-3/6 m-auto sm:py-5 sm:px-4">
+      <div className="w-wrapper m-auto mb-10">
+        <div className="sm:grid shadow-xl bg-secondary sm:grid-cols-4 rounded-lg sm:w-3/6 m-auto sm:py-5 sm:px-4">
           <div className="mr-5 sm:col-span-1 w-full">
             <Image
               src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${image_uri}`}
@@ -52,10 +52,10 @@ const SystemCard: React.FC<Props> = ({
           </div>
           <div className="ml-3 flex flex-col justify-between sm:col-span-2">
             <div className="flex flex-col items-center sm:items-start sm:flex-none">
-              <a className="font-bold uppercase text-xl" href={`/system/${system_uid}`}>
+              <a className="font-bold uppercase text-xl hover:text-gray-500" href={`/system/${system_uid}`}>
                 {name}
               </a>
-              <span className="flex text-sm text-primary">
+              <span className="flex text-sm text-red-700">
                 <MdPlace />
                 <span>{placed}</span>
               </span>
@@ -69,14 +69,11 @@ const SystemCard: React.FC<Props> = ({
           </div>
           <div className="col-span-1">
             {isAdmin ? (
-              <button className="bg-green-500 text-white w-full py-1 px-6 active:bg-gray-500 font-bold rounded-xl">
+              <button className="btn-lg">
                 <a href={`/dashboard/${system_uid}`}>Dashboard</a>
               </button>
             ) : (
-              <button
-                onClick={handleJoinSystem}
-                className="bg-green-500 text-white w-full py-1 px-6 active:bg-gray-500 font-bold rounded-xl"
-              >
+              <button onClick={handleJoinSystem} className="btn-lg">
                 <a>Join</a>
               </button>
             )}

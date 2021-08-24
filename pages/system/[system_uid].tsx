@@ -16,12 +16,17 @@ import { MdPlace } from "react-icons/md";
 import { UpdateSystemVariables, UploadSystemImageVariables } from "../../interface/system.interface";
 import { useRef } from "react";
 import classNames from "classnames";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 interface Props {
   dataUser: UserJwt;
 }
 
 const GetSystem: React.FC<Props> = ({ dataUser }) => {
+  // dayjs
+  dayjs.extend(relativeTime);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { showModal, setShowModal, confirm } = useContext(ModalContext);
@@ -109,6 +114,7 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
     <>
       {deleteLoading ? <Loader /> : null}
       {deleteSuccess ? <Notification message="Delete Success" /> : null}
+      {isSuccessUploadImage ? <Notification message="Image updated" /> : null}
       {showModal ? (
         <div className="w-wrapper">
           <ReactModal
@@ -121,87 +127,89 @@ const GetSystem: React.FC<Props> = ({ dataUser }) => {
       {isLoading && !data ? (
         <Loader />
       ) : (
-        <div className="bg-white h-screen">
+        <div>
           <Navbar dataUser={dataUser} />
-          <div className="sm:w-1/2 p-3 sm:p-10 m-auto rounded-lg shadow-xl">
-            {/* top */}
-            <div className="flex items-center mb-8">
-              <div className="w-14 h-14">
-                {/* <Image /> */}
-                <Image
-                  width={100}
-                  height={100}
-                  className="rounded-full bg-white max-w-full h-full w-full align-middle border-none shadow"
-                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${data?.data.users.image_uri}`}
-                  alt={data?.data.name}
-                />
-              </div>
-              <div className="ml-10 flex flex-col">
-                {isUpdate ? (
-                  <input
-                    className="input"
-                    value={nameValue}
-                    onChange={(e) => setNameValue(e.target.value)}
-                  ></input>
-                ) : (
-                  <h1 className="font-bold text-xl">{data?.data.name.toUpperCase()}</h1>
-                )}
+          <div className="bg-gray-100 py-10">
+            <div className="sm:w-1/2 p-3 sm:p-10 bg-secondary m-auto rounded-lg shadow-xl">
+              {/* top */}
+              <div className="flex items-center mb-8">
+                <div className="w-14 h-14">
+                  {/* <Image /> */}
+                  <Image
+                    width={100}
+                    height={100}
+                    className="rounded-full bg-white max-w-full h-full w-full align-middle border-none shadow"
+                    src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${data?.data.users.image_uri}`}
+                    alt={data?.data.name}
+                  />
+                </div>
+                <div className="ml-10 flex flex-col">
+                  {isUpdate ? (
+                    <input
+                      className="input"
+                      value={nameValue}
+                      onChange={(e) => setNameValue(e.target.value)}
+                    ></input>
+                  ) : (
+                    <h1 className="font-bold text-xl">{data?.data.name.toUpperCase()}</h1>
+                  )}
 
-                {isUpdate ? (
-                  <input
-                    className="input"
-                    value={placedValue}
-                    onChange={(e) => setPlacedValue(e.target.value)}
-                  ></input>
-                ) : (
-                  <div className="flex">
-                    <MdPlace />
-                    <span className="text-xs text-primary">{data?.data.placed}</span>
-                  </div>
-                )}
+                  {isUpdate ? (
+                    <input
+                      className="input mt-3"
+                      value={placedValue}
+                      onChange={(e) => setPlacedValue(e.target.value)}
+                    ></input>
+                  ) : (
+                    <div className="flex text-red-500">
+                      <MdPlace />
+                      <span className="text-xs">{data?.data.placed}</span>
+                    </div>
+                  )}
 
-                <span className="text-xs text-primary">
-                  Created by {data?.data.users.username} at {data?.data.created_at}
-                </span>
-              </div>
+                  <span className="text-xs">
+                    Created by {data?.data.users.username} {dayjs().to(dayjs(data?.data.created_at))}
+                  </span>
+                </div>
 
-              {/* btn */}
-              <div className="ml-5">
-                {dataUser.user_role === "admin" || dataUser.user_role === "superadmin" ? (
-                  isUpdate ? (
-                    <button className="btn" onClick={handleSave}>
-                      Save
+                {/* btn */}
+                <div className="ml-5">
+                  {dataUser.user_role === "admin" || dataUser.user_role === "superadmin" ? (
+                    isUpdate ? (
+                      <button className="btn" onClick={handleSave}>
+                        Save
+                      </button>
+                    ) : (
+                      <button className="btn" onClick={() => setIsUpdate(true)}>
+                        Update
+                      </button>
+                    )
+                  ) : (
+                    ""
+                  )}
+                  {dataUser.user_uid === data?.data.system_maker ? (
+                    <button className="btn" onClick={handleDeleteSystem}>
+                      Delete
                     </button>
                   ) : (
-                    <button className="btn" onClick={() => setIsUpdate(true)}>
-                      Update
-                    </button>
-                  )
-                ) : (
-                  ""
-                )}
-                {dataUser.user_uid === data?.data.system_maker ? (
-                  <button className="btn" onClick={handleDeleteSystem}>
-                    Delete
-                  </button>
-                ) : (
-                  ""
-                )}
-              </div>
+                    ""
+                  )}
+                </div>
 
-              {/* handle image upload */}
-              <input type="file" className="hidden" ref={inputRef} onChange={handleInputChange} name="image" />
-            </div>
-            {/* center */}
-            <div className="flex mb-3 justify-center h-64">
-              <Image
-                width={300}
-                height={200}
-                src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${data?.data.image_uri}`}
-                alt={data?.data.name}
-                className={classNames({ "cursor-pointer": isUpdate })}
-                onClick={handleUpload}
-              />
+                {/* handle image upload */}
+                <input type="file" className="hidden" ref={inputRef} onChange={handleInputChange} name="image" />
+              </div>
+              {/* center */}
+              <div className="flex mb-3 justify-center h-64">
+                <Image
+                  width={300}
+                  height={200}
+                  src={`${process.env.NEXT_PUBLIC_BASE_URL}/images/${data?.data.image_uri}`}
+                  alt={data?.data.name}
+                  className={classNames({ "cursor-pointer": isUpdate })}
+                  onClick={handleUpload}
+                />
+              </div>
             </div>
           </div>
         </div>

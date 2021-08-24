@@ -24,31 +24,33 @@ const System: React.FC<Props> = ({ dataUser }) => {
     <>
       {isLoading ? <Loader /> : ""}
       <Navbar dataUser={dataUser} />
-      {data?.data && data.data.length > 0 && !isLoading
-        ? data.data.map((systemAndUser: SystemAndUser) => (
-            <SystemCard
-              isAdmin={false}
-              user={systemAndUser.users}
-              dataSystem={systemAndUser}
-              key={systemAndUser.id}
-              fromUser={dataUser}
+      <div className="bg-gray-100">
+        {data?.data && data.data.length > 0 && isSuccess
+          ? data.data.map((systemAndUser: SystemAndUser) => (
+              <SystemCard
+                isAdmin={false}
+                user={systemAndUser.users}
+                dataSystem={systemAndUser}
+                key={systemAndUser.id}
+                fromUser={dataUser}
+              />
+            ))
+          : ""}
+        {isSuccess && data?.data.length < 1 ? (
+          <div className="flex flex-col items-center justify-center">
+            <Image
+              className="object-contain"
+              height={500}
+              width={500}
+              src="/images/empty.png"
+              alt="You already admin all System"
             />
-          ))
-        : ""}
-      {isSuccess && data?.data.length < 1 ? (
-        <div className="flex flex-col items-center justify-center">
-          <Image
-            className="object-contain"
-            height={500}
-            width={500}
-            src="/images/empty.png"
-            alt="You already admin all System"
-          />
-          <span>You already admin all system</span>
-        </div>
-      ) : (
-        ""
-      )}
+            <span>You already admin all system</span>
+          </div>
+        ) : (
+          ""
+        )}
+      </div>
     </>
   );
 };

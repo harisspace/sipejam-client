@@ -9,6 +9,7 @@ import React from "react";
 import { IoCreateOutline } from "react-icons/io5";
 import { VscSignIn } from "react-icons/vsc";
 import { BsQuestion } from "react-icons/bs";
+import { Link as LinkScroll } from "react-scroll";
 
 interface Props {
   dataUser?: UserJwt;
@@ -19,7 +20,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
     <div className="w-full shadow-md sticky top-0 z-10">
       <div className="flex justify-between sm:justify-end items-center py-3 sm:py-1 sm:text-sm w-wrapper m-auto">
         {dataUser ? (
-          <div>
+          <div className="hover:text-blue-500">
             <Link href={`/user/${dataUser.user_uid}`}>
               <a className="flex items-center justify-center">
                 <Image
@@ -44,7 +45,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
         )}
         {/* mobile only */}
         {dataUser ? (
-          <div className="sm:hidden">
+          <div className="sm:hidden hover:text-blue-500">
             <Link href="/signout">
               <a className="text-xl">
                 <AiOutlineLogout />
@@ -59,7 +60,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
           {dataUser ? (
             // login view
             <ul className="flex justify-between sm:justify-end">
-              <li className="sm:mr-8">
+              <li className="sm:mr-8 hover:text-blue-500">
                 <Link href="/">
                   <a className="flex flex-col items-center">
                     <AiOutlineHome />
@@ -67,7 +68,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                   </a>
                 </Link>
               </li>
-              <li className="sm:mr-8">
+              <li className="sm:mr-8 hover:text-blue-500">
                 <Link href="/system">
                   <a className="flex flex-col items-center">
                     <AiOutlineSearch />
@@ -78,7 +79,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
 
               {dataUser.user_role === "superadmin" ? (
                 <>
-                  <li className="sm:mr-8">
+                  <li className="sm:mr-8 hover:text-blue-500">
                     <Link href="/system/create">
                       <a className="flex flex-col items-center">
                         <AiOutlinePlus />
@@ -86,7 +87,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                       </a>
                     </Link>
                   </li>
-                  <li className="sm:mr-8">
+                  <li className="sm:mr-8 hover:text-blue-500">
                     <Link href={`/system/usercreated/${dataUser.user_uid}`}>
                       <a className="flex flex-col items-center">
                         <IoCreateOutline />
@@ -94,7 +95,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                       </a>
                     </Link>
                   </li>
-                  <li className="sm:mr-8 cursor-pointer">
+                  <li className="sm:mr-8 cursor-pointer hover:text-blue-500">
                     <Link href={`/user/notification/${dataUser.user_uid}`}>
                       <a className="flex flex-col items-center">
                         <IoIosNotificationsOutline />
@@ -106,7 +107,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
               ) : (
                 ""
               )}
-              <li className="hidden sm:block">
+              <li className="hidden sm:block hover:text-blue-500">
                 <a href="/signout" className="flex-col flex items-center">
                   <AiOutlineLogout />
                   <span>Signout</span>
@@ -116,7 +117,7 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
           ) : (
             // not login view
             <ul className="flex w-wrapper sm:w-full m-auto justify-between sm:justify-end text-lg sm:text-sm">
-              <li className="sm:mr-5">
+              <li className="sm:mr-5 hover:text-blue-500">
                 <Link href="/">
                   <a className="flex flex-col items-center">
                     <AiOutlineHome />
@@ -124,15 +125,15 @@ const Navbar: React.FC<Props> = ({ dataUser }) => {
                   </a>
                 </Link>
               </li>
-              <li className="sm:mr-5">
-                <Link href="#about">
-                  <a className="flex flex-col items-center">
+              <li className="sm:mr-5 hover:text-blue-500">
+                <LinkScroll to="about" smooth={true}>
+                  <a className="flex flex-col items-center" href="#about">
                     <BsQuestion />
                     <span className="hidden sm:block">About</span>
                   </a>
-                </Link>
+                </LinkScroll>
               </li>
-              <li>
+              <li className="hover:text-blue-500">
                 <Link href="/signin">
                   <a className="flex flex-col items-center">
                     <VscSignIn />

@@ -84,10 +84,7 @@ const Signup = () => {
                     </Link>
                     untuk login
                   </span>
-                  <input
-                    type="submit"
-                    className="mt-3 cursor-pointer block bg-secondary text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                  />
+                  <input type="submit" className="btn mt-5" />
                 </form>
               </div>
             </div>

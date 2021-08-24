@@ -1,7 +1,6 @@
 import NavbarLeft from "../../../components/Templates/NavbarLeft";
 import WithAuth from "../../../components/Auth/WithAuth";
 import { UserJwt } from "../../../interface/user.interface";
-import { useRef } from "react";
 import Speeds from "../../../components/Templates/Dashboard/Speeds";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
