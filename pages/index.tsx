@@ -12,6 +12,7 @@ import WithAuthChangeView from "../components/Auth/WithAuthChangeView";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
 import { Element } from "react-scroll";
+import Notification from "../components/Notification";
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css";
@@ -135,6 +136,8 @@ const Home: React.FC<Props> = ({ dataUser }) => {
             <meta name="og:site_name" content="sipejamunand.com" />
             <meta name="og:url" content="sipejamunand.com" />
           </Head>
+          <Notification message="hello world" />
+
           <div className="bg-gradient-to-b from-primary via-secondary">
             <Navbar />
             <div className="mt-20">
