@@ -57,17 +57,7 @@ const Home: React.FC<Props> = ({ dataUser }) => {
       name: "Muhammad Wafa Shadiq",
       department: "Anggota Tim",
       img: "wafa",
-    },
-    {
-      name: "Firgi Andira",
-      department: "Anggota Tim",
-      img: "firgi",
-    },
-    {
-      name: "DR.Eng.Rahmadi Kurnia",
-      department: "Dosen Pembimbing",
-      img: "pak-rahmadi",
-    },
+    }
   ];
 
   return (
@@ -194,9 +184,6 @@ const Home: React.FC<Props> = ({ dataUser }) => {
               SISTEM PENGATUR KENDARAAN BERBASIS COMPUTER VISION DAN IOT SEBAGAI SOLUSI KEAMANAN PADA TIKUNGAN
               TAJAM
             </q>
-            <span className="text-lg sm:text-2xl text-center font-semibold text-primary mt-5">
-              Program Kreativitas Mahasiswa Karsa Cipta (PKM-KC) 2021
-            </span>
           </div>
           {/* about system */}
           <div className="mt-20 sm:mt-32 sm:w-3/4 m-auto shadow-lg rounded-lg p-6">
@@ -214,16 +201,6 @@ const Home: React.FC<Props> = ({ dataUser }) => {
             <video controls className="rounded-lg m-auto">
               <source src="/videos/animation.m4v" type="video/mp4" />
             </video>
-          </div>
-          {/* about us */}
-          <div className="mt-20 sm:mt-32 sm:w-3/4 m-auto shadow-lg rounded-lg p-6">
-            <h3 className="text-center text-2xl font-bold text-green-400">Siapa Kami?</h3>
-            <p className="mt-10">
-              Kami merupakan tim peneliti dari Universitas Andalas. Tim ini terdiri dari 5 mahasiswa dan 1 dosen
-              pembimbing. Penelitian dan pembuatan alat mengenai pengatur kendaraan berbasis komputer vision dan
-              IoT sebagai solusi keamanan pada tikungan tajam diajukan oleh tim pada Program Kreativitas Mahasiswa
-              bidang Karsa Cipta (PKM-KC) 2021.
-            </p>
           </div>
 
           {/* slider */}
